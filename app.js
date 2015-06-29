@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -14,9 +15,24 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/piqmapperdb')
 
-// models
-mongoose.model('users', {name: String});
-mongoose.model('piqs', {color: String});
+// load all files in models dir
+fs.readdirSync(__dirname + '/models').forEach(function(filename) {
+  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+});
+
+app.get('/piqs', function(req, res) {
+  mongoose.model('piqs').find(function(err, piqs) {
+    res.send(piqs);
+  })
+});
+
+app.get('/piqs/:userId', function(req, res) {
+  mongoose.model('piqs').find({user: req.params.userId}, function(err, piqs) {
+    mongoose.model('piqs').populate(piqs, {path: 'user'}, function(err, piqs) {
+      res.send(piqs);
+    });
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
