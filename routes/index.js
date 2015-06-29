@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 var router = express.Router();
 
 /* GET home page. */
@@ -29,20 +30,27 @@ router.get('/piqs', function(req, res, next) {
 
 /* POST registration. */
 router.post('/register', function(req, res, next) {
-	// TODO:
-  res.render('/', { title: 'PiqMapper' });
+	// console.log(req);
+	// bcrypt.genSalt(10, function(err, salt) {
+	// 	bcrypt.hash("B4c0/\/", salt, function() {
+
+	// 	});
+	// });
+	// var salt = bcrypt.genSaltSync(10);
+	// var hash = bcrypt.hashSync("B4c0/\/", salt);
+  res.render('index', { title: 'PiqMapper', piq: {'color':'#ff0000'} });
 });
 
 /* POST login. */
 router.post('/login', function(req, res, next) {
 	// TODO:
-  res.render('/', { title: 'PiqMapper' });
+  res.render('index', { title: 'PiqMapper', piq: {'color':'#ff0000'} });
 });
 
 /* POST piq. */
 router.post('/piq_form', function(req, res, next) {
 	// TODO:
-  res.render('/', { title: 'PiqMapper' });
+  res.render('index', { title: 'PiqMapper', piq: {'color':'#ff0000'} });
 });
 
 // app.get('/piqs', function(req, res) {
