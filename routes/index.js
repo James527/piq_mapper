@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
 
 // app.get('/piqs', function(req, res) {
 //   mongoose.model('piqs').find(function(err, piqs) {
-//     res.send(piqs);
+//     res.send('piqs');
 //   })
-// })
+// });
 
 module.exports = router;
