@@ -1,0 +1,9 @@
+<%- include('header') -%>
+  <p>Users:
+    <ul>
+      <% for (i = 0; i < userlist.length; i++) { %>
+        <li><%= userlist[i] %></li>
+      <% } %>
+    </ul>
+  </p>
+<%- include('footer') -%>

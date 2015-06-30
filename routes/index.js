@@ -5,7 +5,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { piq: {'color':'#ff0000'} });
+	mongoose.model('piqs').find(function(err, piqs) {
+	  res.render('index', { piqs: piqs });
+	})
 });
 
 /* GET register form. */
@@ -16,6 +18,20 @@ router.get('/register', function(req, res, next) {
 /* GET login form. */
 router.get('/login', function(req, res, next) {
   res.render('login_form');
+});
+
+/* GET users listing. */
+router.get('/users', function(req, res, next) {
+  mongoose.model('users').find(function(err, users) {
+	var userlist = [];
+	for (i = 0; i < users.length; i++) {
+		userlist.push(users[i].username);
+	}
+  	// var userlist = getUserList(users);
+  	// console.log(userlist);
+  	// console.log(users[0].username);
+    res.render('users', { userlist: userlist });
+  })
 });
 
 /* GET piq form. */
