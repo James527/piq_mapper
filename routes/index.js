@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
 	  res.render('index', { piqs: piqs });
-	})
+	});
 });
 
 /* GET register form. */
@@ -28,7 +28,7 @@ router.get('/users', function(req, res, next) {
 		userlist.push(users[i].username);
 	}
     res.render('users', { userlist: userlist });
-  })
+  });
 });
 
 /* GET a users account. */
@@ -46,20 +46,35 @@ router.get('/piq_form', function(req, res, next) {
 
 /* GET piqs page. */
 router.get('/piqs', function(req, res, next) {
-	res.render('piqs', { piqs: {'color':'#ff0000'} });
+	mongoose.model('piqs').find(function(err, piqs) {
+	  res.render('piqs', { piqs: piqs });
+	});
 });
 
 /* POST registration. */
 router.post('/register', function(req, res, next) {
-	// console.log(req);
-	// bcrypt.genSalt(10, function(err, salt) {
-	// 	bcrypt.hash("B4c0/\/", salt, function() {
+	mongoose.model('users').find(function(err, users, usersSchema) {
+		var User = mongoose.model('users', usersSchema);
+		var submission = req.body;
+		var password = submission.password;
+		var password_hash = bcrypt.hashSync(password, 10);
+		// console.log(submission);
+		// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
+		// bcrypt.genSalt(10, function(err, salt) {
+		// 	// bcrypt.hash(password, salt, function() {
+		// 	// 	// console.log();
+		// 	// });
+		// });
 
-	// 	});
-	// });
-	// var salt = bcrypt.genSaltSync(10);
-	// var hash = bcrypt.hashSync("B4c0/\/", salt);
-  // res.render('index', { piq: {'color':'#ff0000'} });
+		// TEST: Attempting to put Bob in the database:
+		var Bob = new User({ username: "bob", password: "password", name : "Bob Dirt", email : "bob@mail.com" });
+		Bob.save(function (err, Bob) {
+			if (err) return console.error(err);
+			console.log(Bob.name);
+		});
+
+	  res.render('registration_form');
+	});
 });
 
 /* POST login. */
