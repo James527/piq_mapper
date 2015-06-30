@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 
 /* GET register form. */
 router.get('/register', function(req, res, next) {
+	// TODO: Pass register_check into render and take it out of header.ejs
+
   res.render('registration_form');
 });
 
@@ -67,11 +69,11 @@ router.post('/register', function(req, res, next) {
 		// });
 
 		// TEST: Attempting to put Bob in the database:
-		var Bob = new User({ username: "bob", password: "password", name : "Bob Dirt", email : "bob@mail.com" });
-		Bob.save(function (err, Bob) {
-			if (err) return console.error(err);
-			console.log(Bob.name);
-		});
+		// var Bob = new User({ username: "bob", password: "password", name : "Bob Dirt", email : "bob@mail.com" });
+		// Bob.save(function (err, Bob) {
+		// 	if (err) return console.error(err);
+		// 	console.log(Bob.name);
+		// });
 
 	  res.render('registration_form');
 	});
