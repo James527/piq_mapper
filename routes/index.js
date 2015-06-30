@@ -53,17 +53,28 @@ router.get('/piqs', function(req, res, next) {
 
 /* POST registration. */
 router.post('/register', function(req, res, next) {
-	var submission = req.body
-	var password = submission.password
-	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(password, salt, function() {
-			console.log(password.hash);
+	mongoose.model('users').find(function(err, users, usersSchema) {
+		var User = mongoose.model('users', usersSchema);
+		var submission = req.body;
+		var password = submission.password;
+		var password_hash = bcrypt.hashSync(password, 10);
+		// console.log(submission);
+		// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
+		// bcrypt.genSalt(10, function(err, salt) {
+		// 	// bcrypt.hash(password, salt, function() {
+		// 	// 	// console.log();
+		// 	// });
+		// });
+
+		// TEST: Attempting to put Bob in the database:
+		var Bob = new User({ username: "bob", password: "password", name : "Bob Dirt", email : "bob@mail.com" });
+		Bob.save(function (err, Bob) {
+			if (err) return console.error(err);
+			console.log(Bob.name);
 		});
+
+	  res.render('registration_form');
 	});
-	// var salt = bcrypt.genSaltSync(10);
-	// console.log(salt);
-	// var hash = bcrypt.hashSync("B4c0/\/", salt);
-  res.render('registration_form');
 });
 
 /* POST login. */

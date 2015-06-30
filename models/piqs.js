@@ -9,4 +9,4 @@ var piqsSchema = new Schema({
 	}
 });
 
-mongoose.model('piqs', piqsSchema);
+var Piq = mongoose.model('piqs', piqsSchema);
