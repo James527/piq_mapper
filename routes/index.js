@@ -58,9 +58,13 @@ router.post('/register', function(req, res, next) {
 	mongoose.model('users').find(function(err, users, usersSchema) {
 		var User = mongoose.model('users', usersSchema);
 		var submission = req.body;
-		var password = submission.password;
-		var password_hash = bcrypt.hashSync(password, 10);
+		delete submission.passwordAgain;
+
+		// Hash the users password:
+		var password_hash = bcrypt.hashSync(submission.password, 10);
+		submission.password = password_hash;
 		// console.log(submission);
+
 		// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
 		// bcrypt.genSalt(10, function(err, salt) {
 		// 	// bcrypt.hash(password, salt, function() {
@@ -68,12 +72,10 @@ router.post('/register', function(req, res, next) {
 		// 	// });
 		// });
 
-		// TEST: Attempting to put Bob in the database:
-		// var Bob = new User({ username: "bob", password: "password", name : "Bob Dirt", email : "bob@mail.com" });
-		// Bob.save(function (err, Bob) {
-		// 	if (err) return console.error(err);
-		// 	console.log(Bob.name);
-		// });
+		var newUser = new User(submission);
+		newUser.save(function (err, newUser) {
+			if (err) return console.error(err);
+		});
 
 	  res.render('registration_form');
 	});
@@ -81,14 +83,26 @@ router.post('/register', function(req, res, next) {
 
 /* POST login. */
 router.post('/login', function(req, res, next) {
-	// TODO:
-  // res.render('index', { piq: {'color':'#ff0000'} });
+	mongoose.model('users').find({username: req.body.username}, function(err, users) {
+		var login = req.body;
+		var username = login.username;
+		var hash = users[0].password;
+		test = bcrypt.compareSync(login.password, hash);
+		// console.log(test);
+
+		if (test) {
+			res.render('users', { userlist: [username] });
+		}
+	});
 });
 
 /* POST piq. */
 router.post('/piq_form', function(req, res, next) {
-	// TODO:
-  // res.render('index', { piq: {'color':'#ff0000'} });
+	mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
+		var piq = req.body;
+		console.log(piq.color);
+	  res.render('piq_form');
+	});
 });
 
 // app.get('/piqs/:userId', function(req, res) {
