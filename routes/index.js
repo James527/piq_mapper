@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 /* GET register form. */
 router.get('/register', function(req, res, next) {
-  res.render('register_form');
+  res.render('registration_form');
 });
 
 /* GET login form. */
@@ -27,11 +27,16 @@ router.get('/users', function(req, res, next) {
 	for (i = 0; i < users.length; i++) {
 		userlist.push(users[i].username);
 	}
-  	// var userlist = getUserList(users);
-  	// console.log(userlist);
-  	// console.log(users[0].username);
     res.render('users', { userlist: userlist });
   })
+});
+
+/* GET a users account. */
+router.get('/users/:username', function(req, res) {
+	mongoose.model('users').find({username: req.params.username}, function(err, users) {
+		// TODO: Don't use the users view. Create a user account view.
+		res.render('users', { userlist: users } );
+	});
 });
 
 /* GET piq form. */
@@ -54,32 +59,20 @@ router.post('/register', function(req, res, next) {
 	// });
 	// var salt = bcrypt.genSaltSync(10);
 	// var hash = bcrypt.hashSync("B4c0/\/", salt);
-  res.render('index', { piq: {'color':'#ff0000'} });
+  // res.render('index', { piq: {'color':'#ff0000'} });
 });
 
 /* POST login. */
 router.post('/login', function(req, res, next) {
 	// TODO:
-  res.render('index', { piq: {'color':'#ff0000'} });
+  // res.render('index', { piq: {'color':'#ff0000'} });
 });
 
 /* POST piq. */
 router.post('/piq_form', function(req, res, next) {
 	// TODO:
-  res.render('index', { piq: {'color':'#ff0000'} });
+  // res.render('index', { piq: {'color':'#ff0000'} });
 });
-
-// app.get('/piqs', function(req, res) {
-//   mongoose.model('piqs').find(function(err, piqs) {
-//     res.send('piqs');
-//   })
-// });
-
-// app.get('/piqs', function(req, res) {
-//   mongoose.model('piqs').find(function(err, piqs) {
-//     res.send(piqs);
-//   });
-// });
 
 // app.get('/piqs/:userId', function(req, res) {
 //   mongoose.model('piqs').find({user: req.params.userId}, function(err, piqs) {
