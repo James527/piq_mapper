@@ -1,12 +1,16 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var $ = require('jquery');
+var ajax = require('ajax');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
 	  res.render('index', { piqs: piqs });
+		// var black = [{color: "#000000"}];
+		// res.send({ piqs: black });
 	});
 });
 
