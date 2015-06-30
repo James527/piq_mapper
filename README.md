@@ -1,7 +1,11 @@
 # piq_mapper
 Social-emotion mapping for you and your friends.
 
-pi·quan·cy (noun): a pleasantly sharp and appetizing flavor.
+pi·quan·cy (noun):
+
+1. a pleasantly sharp and appetizing flavor.
+
+2. the quality of being pleasantly stimulating or exciting.
 
 # Technologies Used:
 
