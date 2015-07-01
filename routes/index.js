@@ -13,28 +13,16 @@ var navObj = [];
 function isNotLoggedIn(req, res) {
 	if (req.session.userId == undefined || req.session.userId == null) {
 		console.log('You have no session. Log In!');
-		// session = false;
 		return res.redirect('/login');
 	}
-	if (req.session.userId) {
-		return console.log('You are logged in!');
-		// session = true;
-		// res.redirect('/');
-	}
-	else {
-		return console.log('Dunno dude...');
-		// session = false;
-	}
-	console.log(req.session.userId);
 };
 
 function isLoggedIn(req, res) {
 	if (req.session.userId) {
-		return console.log('You are logged in!');
-		// session = true;
-		res.redirect('/users');
+		console.log('You are logged in!');
+		return res.redirect('/users');
 	}
-}
+};
 
 // Checks if current session has userId and passes one of the two Nav Objects
 function setNav(req) {
@@ -50,13 +38,13 @@ function setNav(req) {
 
 //////////* GET HOME PAGE *//////////
 router.get('/', function(req, res, next) {
-	setNav(req);
 	mongoose.model('piqs').find(function(err, piqs) {
+		setNav(req);
 
 		// // User session
 		// console.log(req.cookies);
 		// console.log('=====================');
-		// console.log(req.session);
+		console.log(req.session);
 
 
 		// console.log("navObj: " + navObj);
@@ -68,6 +56,7 @@ router.get('/', function(req, res, next) {
 router.get('/register', function(req, res, next) {
 	setNav(req);
 	isLoggedIn(req, res);
+
 	// TODO: Pass register_check into render and take it out of header.ejs
 
   res.render('registration_form', { navItems: navObj });
@@ -83,9 +72,9 @@ router.get('/login', function(req, res, next) {
 
 //////////* GET USERS PAGE *//////////
 router.get('/users', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('users').find(function(err, users) {
+		setNav(req);
+		isNotLoggedIn(req, res);
 		var userlist = [];
 		for (i = 0; i < users.length; i++) {
 			userlist.push(users[i].username);
@@ -96,9 +85,9 @@ router.get('/users', function(req, res, next) {
 
 //////////* GET USER ACCOUNT *//////////
 router.get('/user/:username', function(req, res) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
+		setNav(req);
+		isNotLoggedIn(req, res);
 
 		// res.session.name = req.params.username;
 		var user = users[0];
@@ -118,29 +107,30 @@ router.get('/piq_form', function(req, res, next) {
 	isNotLoggedIn(req, res);
 
 		// User session
-		console.log(req.cookies);
-		console.log('=====================');
-		console.log(req.session);
-		console.log(req.session.userId);
+		// console.log(req.cookies);
+		// console.log('=====================');
+		// console.log(req.session);
+		// console.log(req.session.userId);
 
 	res.render('piq_form', { navItems: navObj });
 });
 
 //////////* GET PIQS PAGE *//////////
 router.get('/piqs', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('piqs').find(function(err, piqs) {
+		setNav(req);
+		isNotLoggedIn(req, res);
+
 	  res.render('piqs', { piqs: piqs, navItems: navObj });
 	});
 });
 
 //////////* GET USERS PIQS PAGE *//////////
 router.get('/user/:username/piquancy', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
 		mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
+			setNav(req);
+			isNotLoggedIn(req, res);
 
 			// Render the MyPiqs page
 			res.render('mypiqs', { mypiqs: piqs, navItems: navObj });
@@ -159,9 +149,10 @@ router.get('/user/:username/piquancy', function(req, res, next) {
 
 //////////* GET PIQ PAGE *//////////
 router.get('/piq/:piq_id', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
+		setNav(req);
+		isNotLoggedIn(req, res);
+
 		console.log(piqs);
 		// Render the Piq Page
 		res.render('piq', { piq: piqs, navItems: navObj });
@@ -204,7 +195,7 @@ router.get('/about', function(req, res, next) {
 
 //////////* GET LOGOUT *//////////
 router.get('/logout', function(req, res, next) {
-	// setNav(req);
+	setNav(req);
 
 	// TODO: Clear the session data and set session var to false
 
@@ -214,9 +205,10 @@ router.get('/logout', function(req, res, next) {
 
 //////////* POST USER REGISTRATION *//////////
 router.post('/register', function(req, res, next) {
-	setNav(req);
-	isLoggedIn(req, res);
 	mongoose.model('users').find(function(err, users, usersSchema) {
+		setNav(req);
+		isLoggedIn(req, res);
+
 		var User = mongoose.model('users', usersSchema);
 		var submission = req.body;
 		delete submission.passwordAgain;
@@ -244,9 +236,10 @@ router.post('/register', function(req, res, next) {
 
 //////////* POST USER LOGIN *//////////
 router.post('/login', function(req, res, next) {
-	setNav(req);
-	isLoggedIn(req, res);
 	mongoose.model('users').find({username: req.body.username}, function(err, users) {
+		setNav(req);
+		isLoggedIn(req, res);
+
 		var login = req.body;
 		var username = login.username;
 		var userId = users[0]._id;
@@ -267,10 +260,11 @@ router.post('/login', function(req, res, next) {
 
 //////////* POST PIQ SUBMISSION *//////////
 router.post('/piq_form', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
 	mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
 		mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
+			setNav(req);
+			isNotLoggedIn(req, res);
+
 			var Piq = mongoose.model('piqs', piqsSchema);
 			var piq = req.body;
 			var uID = users[0]._id;
