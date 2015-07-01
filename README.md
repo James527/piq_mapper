@@ -10,7 +10,9 @@ pi·quan·cy (noun):
 # Technologies Used:
 
 Node.js + Express
+
 MongoDB + Mongoose
+
 AJAX and jQuery
 
 # Installation Instructions:
@@ -32,3 +34,30 @@ AJAX and jQuery
 # Wireframes:
 
 # Issues:
+- Error: Can't set headers after they are sent.
+
+### TODO ###
+
+# TODO for MVP:
+- jQuery and AJAX on the front-end
+- CRUD functionality for Piqs
+- Logout redirect, register redirect, pi_submit redirect aren’t working for some reason
+- Two AJAX requests
+- Finish Styling
+- DEPLOYMENT!!!
+
+#TODO extras:
+- Pass register_check into render and take it out of header.ejs
+- Don't pass the user object into the page without omitting the password
+
+- Have /login submission redirect to profile
+- Password reset form
+- User stats page
+
+- CSS Animations
+- Add “friend” collection
+	* Seed db
+	* Friend Routes
+	* Set permissions
+- Facebook API
+- GitHub API

@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: 'keyboard cat',
+  cookie: { maxAge: 60000},
   saveUninitialized: true,
   resave: true
 }));
