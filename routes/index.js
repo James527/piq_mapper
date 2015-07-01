@@ -11,6 +11,11 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
 
+		// Check for session userId
+		if (req.session.userId == undefined) {
+			// res.redirect('/login');
+		}
+
 	  res.render('index', { piqs: piqs });
 	});
 });
@@ -61,6 +66,18 @@ router.get('/users/:username', function(req, res) {
 
 //////////* GET PIQ SUBMISSION FORM *//////////
 router.get('/piq_form', function(req, res, next) {
+
+	// Check for session userId
+	// if (req.session.userId == undefined) {
+	// 	res.redirect('/login');
+	// }
+
+		// User session
+		console.log(req.cookies);
+		console.log('=====================');
+		console.log(req.session);
+		console.log(req.session.userId);
+
 	res.render('piq_form');
 });
 
@@ -171,14 +188,14 @@ router.post('/login', function(req, res, next) {
 		var userId = users[0]._id;
 		var hash = users[0].password;
 
-		test = bcrypt.compareSync(login.password, hash);
+		pass = bcrypt.compareSync(login.password, hash);
 		// console.log(test);
-		if (test) {
-			var user = users[0];
-
+		if (pass) {
 			// Start user session
+			var user = users[0];
 			req.session.userId = userId;
 
+			// TODO: Redirect to Profile
 			res.redirect('/users');
 		}
 	});
@@ -186,17 +203,44 @@ router.post('/login', function(req, res, next) {
 
 //////////* POST PIQ SUBMISSION *//////////
 router.post('/piq_form', function(req, res, next) {
-	mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
-		var piq = req.body;
-		console.log(piq.color);
-	  res.redirect('/piqs');
+	mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
+		mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
+			var Piq = mongoose.model('piqs', piqsSchema);
+			var piq = req.body;
+			var uID = users[0]._id;
+			console.log(uID);
+			piq.user = uID;
+			console.log(piq);
+
+			// Save to the database
+			var newPiq = new Piq(piq);
+			newPiq.save(function (err, newPiq) {
+				if (err) return console.error(err);
+			});
+
+		  res.redirect('/piqs');
+		});
 	});
 });
 
 
 //////////* PUT (EDIT) USER REGISTRATION  *//////////
+router.put('/register', function(req, res, next) {
+
+	//Save changes to the database
+
+	//Redirect to the Users Profile Page
+	res.redirect('/profile');
+});
 
 //////////* PUT (EDIT) USER PASSWORD *//////////
+router.put('/password_reset', function(req, res, next) {
+
+	//Save changes to the database
+
+	//Redirect to the Login Page
+	res.redirect('/login');
+});
 
 //////////* DELETE USER PIQ *//////////
 
