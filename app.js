@@ -35,7 +35,9 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'keyboard cat'
+  secret: 'keyboard cat',
+  saveUninitialized: true,
+  resave: true
 }));
 
 // app.use(session({
