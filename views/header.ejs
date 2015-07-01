@@ -34,13 +34,10 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <h1><a href="/">PiqMapper</a></h1>
     <p id="brand">Social-emotion tracking, with colors</p>
-    <div>
-      <p><a href="/register">Register</a></p>
-      <p><a href="/login">Login</a></p>
-      <p><a href="/piq_form">Submit a Piq</a></p>
-    </div>
-    <div>
-      <p><a href="/users">All Users</a></p>
-      <p><a href="/piqs">All Piqs</a></p>
-      <p><a href="/logout">Logout</a></p>
+    <div class="navContainer">
+      <div id="nav">
+        <% for (i = 0; i < navItems.length; i++) { %>
+          <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>
+        <% }; %>
+      </div>
     </div>
