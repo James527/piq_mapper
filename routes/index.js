@@ -3,11 +3,12 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 var _und = require('underscore');
-// var $ = require('jquery');
-// var ajax = require('ajax');
+
 var router = express.Router();
 
+// Setting app variables
 var navObj = [];
+var userlist = [];
 
 // Check for the session userId
 function isNotLoggedIn(req, res) {
@@ -44,7 +45,7 @@ router.get('/', function(req, res, next) {
 		// // User session
 		// console.log(req.cookies);
 		// console.log('=====================');
-		console.log(req.session);
+		// console.log(req.session);
 
 
 		// console.log("navObj: " + navObj);
@@ -75,7 +76,7 @@ router.get('/users', function(req, res, next) {
 	mongoose.model('users').find(function(err, users) {
 		setNav(req);
 		isNotLoggedIn(req, res);
-		var userlist = [];
+		userlist = [];
 		for (i = 0; i < users.length; i++) {
 			userlist.push(users[i].username);
 		}
@@ -160,12 +161,12 @@ router.get('/piq/:piq_id', function(req, res, next) {
 });
 
 //////////* GET USER STAT PAGE *//////////
-router.get('/user/:username/stats', function(req, res, next) {
-	setNav(req);
-	isNotLoggedIn(req, res);
+// router.get('/user/:username/stats', function(req, res, next) {
+// 	setNav(req);
+// 	isNotLoggedIn(req, res);
 
 	// Send stats to the Profile Page
-});
+// });
 
 //////////* GET USER PROFILE PAGE *//////////
 router.get('/profile', function(req, res, next) {
@@ -209,23 +210,29 @@ router.post('/register', function(req, res, next) {
 		setNav(req);
 		isLoggedIn(req, res);
 
-		var User = mongoose.model('users', usersSchema);
 		var submission = req.body;
 		delete submission.passwordAgain;
 
-		// Hash the users password:
+		// Hash the users password synchronously:
 		var password_hash = bcrypt.hashSync(submission.password, 10);
 		submission.password = password_hash;
 
 		// console.log(submission);
 		// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
+
+		// Hash the users password Asynchronously:
 		// bcrypt.genSalt(10, function(err, salt) {
 		// 	// bcrypt.hash(password, salt, function() {
 		// 	// 	// console.log();
 		// 	// });
 		// });
 
+		// Creates a user model
+		var User = mongoose.model('users', usersSchema);
+
+		// Creates a newUser object from the user model...
 		var newUser = new User(submission);
+		// ...saves it to the database
 		newUser.save(function (err, newUser) {
 			if (err) return console.error(err);
 		});
@@ -245,15 +252,14 @@ router.post('/login', function(req, res, next) {
 		var userId = users[0]._id;
 		var hash = users[0].password;
 
+		// Compares the login password to the hashed password
 		pass = bcrypt.compareSync(login.password, hash);
-		// console.log(test);
 		if (pass) {
 			// Start user session
 			var user = users[0];
 			req.session.userId = userId;
 
-			// TODO: Redirect to Profile
-			res.redirect('/users');
+			res.redirect('/users'); // <-- TODO: Redirect to Profile
 		}
 	});
 });
@@ -265,15 +271,18 @@ router.post('/piq_form', function(req, res, next) {
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			var Piq = mongoose.model('piqs', piqsSchema);
 			var piq = req.body;
 			var uID = users[0]._id;
-			console.log(uID);
+			// console.log(uID);
 			piq.user = uID;
-			console.log(piq);
+			// console.log(piq);
 
-			// Save to the database
+			// Creates a Piq model
+			var Piq = mongoose.model('piqs', piqsSchema);
+
+			// Makes a newPiq object from the model...
 			var newPiq = new Piq(piq);
+			// ...and saves it to the database
 			newPiq.save(function (err, newPiq) {
 				if (err) return console.error(err);
 			});
@@ -308,6 +317,11 @@ router.put('/password_reset', function(req, res, next) {
 
 //////////* DELETE USER PIQ *//////////
 
+
+
 //////////* DELETE USER *//////////
+
+
+
 
 module.exports = router;
