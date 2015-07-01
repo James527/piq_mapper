@@ -3,7 +3,9 @@
 
     <div class="container">
       <% for (i = 0; i < piqs.length; i++) { %>
-        <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
+        <a class="plink" href="/piq/<%= piqs[i]._id %>">
+        	<div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
+        </a>
       <% } %>
     </div>
 
