@@ -7,48 +7,64 @@ var _und = require('underscore');
 // var ajax = require('ajax');
 var router = express.Router();
 
+// Check if the session userId is undifined, if so redirect to login
+function sessionUndefined(req, res) {
+	if (req.session.userId == undefined) {
+		session = false;
+		res.redirect('/login');
+	}
+};
+
+// Check for the session userId
+function sessionCheck(req, res) {
+	if (req.session.userId) {
+		session = true;
+		res.redirect('/');
+	}
+	else {
+		session = false;
+	}
+};
+
 //////////* GET HOME PAGE *//////////
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
+		sessionUndefined(req, res);
 
-		// Check for the session userId
-		if (req.session.userId == undefined) {
-			// res.redirect('/login');
-		}
-
-	  res.render('index', { piqs: piqs });
+	  res.render('index', { piqs: piqs, session: session });
 	});
 });
 
 //////////* GET REGISTERATION FORM *//////////
 router.get('/register', function(req, res, next) {
+	sessionCheck(req, res);
 	// TODO: Pass register_check into render and take it out of header.ejs
 
-  res.render('registration_form');
+  res.render('registration_form', { session: session });
 });
 
 //////////* GET LOGIN FORM *//////////
 router.get('/login', function(req, res, next) {
-	if (req.session.userId) {
-		res.redirect('/');
-	}
+	sessionCheck(req, res);
 
-  res.render('login_form');
+  res.render('login_form', { session: session });
 });
 
 //////////* GET USERS PAGE *//////////
 router.get('/users', function(req, res, next) {
-  mongoose.model('users').find(function(err, users) {
-	var userlist = [];
-	for (i = 0; i < users.length; i++) {
-		userlist.push(users[i].username);
-	}
-    res.render('users', { users: userlist });
-  });
+	sessionUndefined(req, res);
+	mongoose.model('users').find(function(err, users) {
+		var userlist = [];
+		for (i = 0; i < users.length; i++) {
+			userlist.push(users[i].username);
+		}
+	    res.render('users', { users: userlist, session: session });
+	});
 });
 
 //////////* GET USER ACCOUNT *//////////
 router.get('/user/:username', function(req, res) {
+	sessionUndefined(req, res);
 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
 
 		// User session
@@ -64,17 +80,13 @@ router.get('/user/:username', function(req, res) {
 		// underscore isn't working for some reason
 		// var dude = underscore.omit(user, 'password');
 
-		res.render('profile', { user: user });
+		res.render('profile', { user: user, session: session });
 	});
 });
 
 //////////* GET PIQ SUBMISSION FORM *//////////
 router.get('/piq_form', function(req, res, next) {
-
-	// Check for session userId
-	// if (req.session.userId == undefined) {
-	// 	res.redirect('/login');
-	// }
+	sessionUndefined(req, res);
 
 		// User session
 		console.log(req.cookies);
@@ -82,23 +94,25 @@ router.get('/piq_form', function(req, res, next) {
 		console.log(req.session);
 		console.log(req.session.userId);
 
-	res.render('piq_form');
+	res.render('piq_form', { session: session });
 });
 
 //////////* GET PIQS PAGE *//////////
 router.get('/piqs', function(req, res, next) {
+	sessionUndefined(req, res);
 	mongoose.model('piqs').find(function(err, piqs) {
-	  res.render('piqs', { piqs: piqs });
+	  res.render('piqs', { piqs: piqs, session: session });
 	});
 });
 
 //////////* GET USERS PIQS PAGE *//////////
 router.get('/user/:username/piquancy', function(req, res, next) {
+	sessionUndefined(req, res);
 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
 		mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
 
 			// Render the MyPiqs page
-			res.render('mypiqs', { mypiqs: piqs });
+			res.render('mypiqs', { mypiqs: piqs, session: session });
 		});
 	});
 });
@@ -114,49 +128,53 @@ router.get('/user/:username/piquancy', function(req, res, next) {
 
 //////////* GET PIQ PAGE *//////////
 router.get('/piq/:piq_id', function(req, res, next) {
+	sessionUndefined(req, res);
 	mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
 		console.log(piqs);
 		// Render the Piq Page
-		res.render('piq', { piq: piqs });
+		res.render('piq', { piq: piqs, session: session });
 	});
 });
 
 //////////* GET USER STAT PAGE *//////////
 router.get('/user/:username/stats', function(req, res, next) {
+	sessionUndefined(req, res);
 
 	// Send stats to the Profile Page
 });
 
 //////////* GET USER PROFILE PAGE *//////////
 router.get('/profile', function(req, res, next) {
+	sessionUndefined(req, res);
 
 	// TODO: Redirect to Users Profile Page
-	res.redirect('/user/jmz527');
+	res.redirect('/user/jmz527', { session: session });
 });
 
 //////////* GET PASSWORD RESET FORM *//////////
 router.get('/password_reset', function(req, res, next) {
 
 	// Render the Password Reset Page
-	res.render('reset_password_form');
+	res.render('reset_password_form', { session: session });
 });
 
 //////////* GET ABOUT PAGE *//////////
 router.get('/about', function(req, res, next) {
 	// Render the About Page
-	res.render('about');
+	res.render('about', { session: session });
 });
 
 //////////* POST LOGOUT *//////////
 router.get('/logout', function(req, res, next) {
-	// TODO: Clear the session data
+	// TODO: Clear the session data and set session var to false
 
 	// Redirect to login page
-	res.redirect('/login');
+	res.redirect('/login', { session: session });
 });
 
 //////////* POST USER REGISTRATION *//////////
 router.post('/register', function(req, res, next) {
+	sessionCheck(req, res);
 	mongoose.model('users').find(function(err, users, usersSchema) {
 		var User = mongoose.model('users', usersSchema);
 		var submission = req.body;
@@ -185,6 +203,7 @@ router.post('/register', function(req, res, next) {
 
 //////////* POST USER LOGIN *//////////
 router.post('/login', function(req, res, next) {
+	sessionCheck(req, res);
 	mongoose.model('users').find({username: req.body.username}, function(err, users) {
 		var login = req.body;
 		var username = login.username;
@@ -206,6 +225,7 @@ router.post('/login', function(req, res, next) {
 
 //////////* POST PIQ SUBMISSION *//////////
 router.post('/piq_form', function(req, res, next) {
+	sessionUndefined(req, res);
 	mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
 		mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
 			var Piq = mongoose.model('piqs', piqsSchema);
@@ -221,7 +241,7 @@ router.post('/piq_form', function(req, res, next) {
 				if (err) return console.error(err);
 			});
 
-		  res.redirect('/piqs');
+		  res.redirect('/piqs', { session: session });
 		});
 	});
 });
@@ -229,20 +249,22 @@ router.post('/piq_form', function(req, res, next) {
 
 //////////* PUT (EDIT) USER REGISTRATION  *//////////
 router.put('/register', function(req, res, next) {
+	// sessionUndefined(req, res);
 
 	//Save changes to the database
 
 	//Redirect to the Users Profile Page
-	res.redirect('/profile');
+	res.redirect('/profile', { session: session });
 });
 
 //////////* PUT (EDIT) USER PASSWORD *//////////
 router.put('/password_reset', function(req, res, next) {
+	// sessionUndefined(req, res);
 
 	//Save changes to the database
 
 	//Redirect to the Login Page
-	res.redirect('/login');
+	res.redirect('/login', { session: session });
 });
 
 //////////* DELETE USER PIQ *//////////

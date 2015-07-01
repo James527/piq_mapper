@@ -41,13 +41,6 @@ app.use(session({
 }));
 
 // app.use(session({
-//   genid: function(req) {
-//     return genuuid() // use UUIDs for session IDs
-//   },
-//   secret: 'keyboard cat'
-// }))
-
-// app.use(session({
 //   secret: cookie_secret,
 //   name: cookie_name,
 //   store: sessionStore, // connect-mongo session store
@@ -58,13 +51,6 @@ app.use(session({
 
 app.use('/', routes);
 // app.use('/users', users);
-
-// sessions
-// session.Session = {secret: 'ssshhhhh'};
-// console.log(session.Session.secret);
-// if (session.Session.secret) {
-//   console.log(true);
-// }
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
