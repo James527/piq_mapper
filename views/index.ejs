@@ -1,10 +1,10 @@
 <%- include('header') -%>
 	<p>Piqs: <%= piqs.length %></p>
 
-    <ul>
+    <div class="container">
       <% for (i = 0; i < piqs.length; i++) { %>
-        <li style="background-color: <%= piqs[i].color %> ;"></li>
+        <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
       <% } %>
-    </ul>
+    </div>
 
 <%- include('footer') -%>
