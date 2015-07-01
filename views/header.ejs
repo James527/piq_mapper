@@ -35,15 +35,9 @@
     <h1><a href="/">PiqMapper</a></h1>
     <p id="brand">Social-emotion tracking, with colors</p>
     <div class="navContainer">
-      <% console.log(session); %>
-      <% if (session) { %>
-        <div id="sessionNav">
-          <p><a href="/piq_form">Submit a Piq</a> / <a href="/users">All Users</a> / <a href="/piqs">All Piqs</a> / <a href="/logout">Logout</a></p>
-        </div>
-      <% } %>
-      <% if (session == false) { %>
-        <div id="logregNav">
-          <p><a href="/login">Login</a> / <a href="/register">Register</a></p>
-        </div>
-      <% } %>
+      <div id="nav">
+        <% for (i = 0; i < navItems.length; i++) { %>
+          <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>
+        <% }; %>
+      </div>
     </div>
