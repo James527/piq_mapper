@@ -11,7 +11,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
 
-		// Check for session userId
+		// Check for the session userId
 		if (req.session.userId == undefined) {
 			// res.redirect('/login');
 		}
@@ -29,6 +29,10 @@ router.get('/register', function(req, res, next) {
 
 //////////* GET LOGIN FORM *//////////
 router.get('/login', function(req, res, next) {
+	if (req.session.userId) {
+		res.redirect('/');
+	}
+
   res.render('login_form');
 });
 
@@ -39,12 +43,12 @@ router.get('/users', function(req, res, next) {
 	for (i = 0; i < users.length; i++) {
 		userlist.push(users[i].username);
 	}
-    res.render('users', { userlist: userlist });
+    res.render('users', { users: userlist });
   });
 });
 
 //////////* GET USER ACCOUNT *//////////
-router.get('/users/:username', function(req, res) {
+router.get('/user/:username', function(req, res) {
 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
 
 		// User session
@@ -88,6 +92,17 @@ router.get('/piqs', function(req, res, next) {
 	});
 });
 
+//////////* GET USERS PIQS PAGE *//////////
+router.get('/user/:username/piquancy', function(req, res, next) {
+	mongoose.model('users').find({username: req.params.username}, function(err, users) {
+		mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
+
+			// Render the MyPiqs page
+			res.render('mypiqs', { mypiqs: piqs });
+		});
+	});
+});
+
 // EXAMPLE - Getting the user through piqs:
 // app.get('/piqs/:userId', function(req, res) {
 //   mongoose.model('piqs').find({user: req.params.userId}, function(err, piqs) {
@@ -97,27 +112,17 @@ router.get('/piqs', function(req, res, next) {
 //   });
 // });
 
-
-//////////* GET USERS PIQS PAGE *//////////
-router.get('/user/piqs', function(req, res, next) {
-	// Pull the users data from the database
-
-	// Pull their piqs data from the database
-
-	// Render the MyPiqs page
-	res.render('mypiqs');
-});
-
 //////////* GET PIQ PAGE *//////////
 router.get('/piq/:piq_id', function(req, res, next) {
-
-
-	// Render the Piq Page
-	res.render('piq');
+	mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
+		console.log(piqs);
+		// Render the Piq Page
+		res.render('piq', { piq: piqs });
+	});
 });
 
 //////////* GET USER STAT PAGE *//////////
-router.get('/user/stats', function(req, res, next) {
+router.get('/user/:username/stats', function(req, res, next) {
 
 	// Send stats to the Profile Page
 });
@@ -125,8 +130,8 @@ router.get('/user/stats', function(req, res, next) {
 //////////* GET USER PROFILE PAGE *//////////
 router.get('/profile', function(req, res, next) {
 
-	// Render the Profile Page
-	res.render('profile');
+	// TODO: Redirect to Users Profile Page
+	res.redirect('/user/jmz527');
 });
 
 //////////* GET PASSWORD RESET FORM *//////////
@@ -138,15 +143,13 @@ router.get('/password_reset', function(req, res, next) {
 
 //////////* GET ABOUT PAGE *//////////
 router.get('/about', function(req, res, next) {
-
 	// Render the About Page
 	res.render('about');
 });
 
 //////////* POST LOGOUT *//////////
-router.post('/logout', function(req, res, next) {
-
-	// Clear the session data
+router.get('/logout', function(req, res, next) {
+	// TODO: Clear the session data
 
 	// Redirect to login page
 	res.redirect('/login');
@@ -162,8 +165,8 @@ router.post('/register', function(req, res, next) {
 		// Hash the users password:
 		var password_hash = bcrypt.hashSync(submission.password, 10);
 		submission.password = password_hash;
-		// console.log(submission);
 
+		// console.log(submission);
 		// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
 		// bcrypt.genSalt(10, function(err, salt) {
 		// 	// bcrypt.hash(password, salt, function() {

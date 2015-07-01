@@ -1,8 +1,8 @@
 <%- include('header') -%>
   <p>Users:
     <ul>
-      <% for (i = 0; i < userlist.length; i++) { %>
-	    <li><a href="/users/<%= userlist[i] %>"><%= userlist[i] %></a></li>
+      <% for (i = 0; i < users.length; i++) { %>
+	    <li><a href="/user/<%= users[i] %>"><%= users[i] %></a></li>
       <% } %>
     </ul>
   </p>
