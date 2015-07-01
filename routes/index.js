@@ -1,12 +1,17 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var session = require('express-session');
+// var $ = require('jquery');
+// var ajax = require('ajax');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	mongoose.model('piqs').find(function(err, piqs) {
 	  res.render('index', { piqs: piqs });
+		// var black = [{color: "#000000"}];
+		// res.send({ piqs: black });
 	});
 });
 
@@ -86,6 +91,14 @@ router.post('/login', function(req, res, next) {
 	mongoose.model('users').find({username: req.body.username}, function(err, users) {
 		var login = req.body;
 		var username = login.username;
+
+		// Start user session
+		// session.Session.secret = username;
+		// console.log(session.Session);
+		// if (session.Session.secret) {
+		//   console.log(true);
+		// }
+
 		var hash = users[0].password;
 		test = bcrypt.compareSync(login.password, hash);
 		// console.log(test);
