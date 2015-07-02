@@ -47,10 +47,9 @@ AJAX and jQuery
 - DEPLOYMENT!!!
 
 #TODO extras:
-- Pass register_check into render and take it out of header.ejs
-- Don't pass the user object into the page without omitting the password
-
-- Have /login submission redirect to profile
+- Serve public JS files through routes
+- Omit password where needed
+- Login submission redirect to profile
 - Password reset form
 - User stats page
 

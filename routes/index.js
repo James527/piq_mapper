@@ -57,6 +57,14 @@ var userlist = [];
 		});
 	});
 
+	//////////* GET ABOUT PAGE *//////////
+	router.get('/about', function(req, res, next) {
+		setNav(req);
+
+		
+		res.render('about', { navItems: navObj });
+	});
+
 	//////////* GET REGISTERATION FORM *//////////
 	router.get('/register', function(req, res, next) {
 		setNav(req);
@@ -94,7 +102,6 @@ var userlist = [];
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			// res.session.name = req.params.username;
 			var user = users[0];
 
 			// TODO: Don't pass the user object into the page
@@ -106,6 +113,16 @@ var userlist = [];
 		});
 	});
 
+	//////////* GET PIQS PAGE *//////////
+	router.get('/piqs', function(req, res, next) {
+		mongoose.model('piqs').find(function(err, piqs) {
+			setNav(req);
+			isNotLoggedIn(req, res);
+
+		  res.render('piqs', { piqs: piqs, navItems: navObj });
+		});
+	});
+
 	//////////* GET PIQ SUBMISSION FORM *//////////
 	router.get('/piq_form', function(req, res, next) {
 		setNav(req);
@@ -114,13 +131,14 @@ var userlist = [];
 		res.render('piq_form', { navItems: navObj });
 	});
 
-	//////////* GET PIQS PAGE *//////////
-	router.get('/piqs', function(req, res, next) {
-		mongoose.model('piqs').find(function(err, piqs) {
+	//////////* GET PIQ PAGE *//////////
+	router.get('/piq/:piq_id', function(req, res, next) {
+		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-		  res.render('piqs', { piqs: piqs, navItems: navObj });
+			console.log(piqs);
+			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
 
@@ -145,33 +163,22 @@ var userlist = [];
 	//   });
 	// });
 
-	//////////* GET PIQ PAGE *//////////
-	router.get('/piq/:piq_id', function(req, res, next) {
-		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
-			setNav(req);
-			isNotLoggedIn(req, res);
-
-			console.log(piqs);
-			res.render('piq', { piq: piqs, navItems: navObj });
-		});
-	});
-
-	//////////* GET USER STAT PAGE *//////////
-	// router.get('/user/:username/stats', function(req, res, next) {
-	// 	setNav(req);
-	// 	isNotLoggedIn(req, res);
-
-		// Send stats to the Profile Page
-	// });
-
 	//////////* GET USER PROFILE PAGE *//////////
 	router.get('/profile', function(req, res, next) {
 		setNav(req);
 		isNotLoggedIn(req, res);
 
-		// TODO: Redirect to Users Profile Page
-		res.redirect('/user/jmz527', { navItems: navObj });
+		res.redirect('/user/jmz527', { navItems: navObj }); // <-- TODO: Redirect to Users Profile Page
 	});
+
+	//////////* GET USER UPDATE FORM *//////////
+	// router.get('/user/:username/update', function(req, res, next) {
+	// 	setNav(req);
+	// 	isNotLoggedIn(req, res);
+
+		
+	// 	res.render('update_form', { navItems: navObj });
+	// });
 
 	//////////* GET PASSWORD RESET FORM *//////////
 	router.get('/password_reset', function(req, res, next) {
@@ -182,13 +189,13 @@ var userlist = [];
 		res.render('reset_password_form', { navItems: navObj });
 	});
 
-	//////////* GET ABOUT PAGE *//////////
-	router.get('/about', function(req, res, next) {
-		setNav(req);
+	//////////* GET USER STAT PAGE *//////////
+	// router.get('/user/:username/stats', function(req, res, next) {
+	// 	setNav(req);
+	// 	isNotLoggedIn(req, res);
 
-		
-		res.render('about', { navItems: navObj });
-	});
+		// Send stats to the Profile Page
+	// });
 
 	//////////* GET LOGOUT *//////////
 	router.get('/logout', function(req, res, next) {
@@ -215,15 +222,15 @@ var userlist = [];
 			var password_hash = bcrypt.hashSync(submission.password, 10);
 			submission.password = password_hash;
 
-			// console.log(submission);
-			// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
-
 			// Hash the users password Asynchronously:
 			// bcrypt.genSalt(10, function(err, salt) {
 			// 	// bcrypt.hash(password, salt, function() {
 			// 	// 	// console.log();
 			// 	// });
 			// });
+
+			// console.log(submission);
+			// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
 
 			// Creates a user model
 			var User = mongoose.model('users', usersSchema);
@@ -252,8 +259,9 @@ var userlist = [];
 
 			// Compares the login password to the hashed password
 			pass = bcrypt.compareSync(login.password, hash);
+			// If the passwords match...
 			if (pass) {
-				// Start user session
+				// ...start user session
 				var user = users[0];
 				req.session.userId = userId;
 
@@ -292,40 +300,57 @@ var userlist = [];
 
 //____EDIT ROUTES________________________________________________//
 
-	//////////* PUT (EDIT) USER REGISTRATION  *//////////
-	router.put('/register', function(req, res, next) {
-		// setNav(req);
-		// isNotLoggedIn(req, res);
+	//////////* UPDATE USER REGISTRATION  *//////////
+	// router.put('/user/:username/update', function(req, res, next) {
+	// 	setNav(req);
+	// 	isNotLoggedIn(req, res);
 
 		//Save changes to the database
 
 		//Redirect to the Users Profile Page
-		res.redirect('/profile', { navItems: navObj });
-	});
+	// 	res.redirect('/profile', { navItems: navObj });
+	// });
 
-	//////////* PUT (EDIT) USER PASSWORD *//////////
-	router.put('/password_reset', function(req, res, next) {
+	//////////* RESET PASSWORD *//////////
+	// router.put('/password_reset', function(req, res, next) {
 		// setNav(req);
 		// isNotLoggedIn(req, res);
 
 		//Save changes to the database
 
 		//Redirect to the Login Page
-		res.redirect('/login', { navItems: navObj });
-	});
+		// res.redirect('/login', { navItems: navObj });
+	// });
 
 //____DELETE ROUTES________________________________________________//
 
 	//////////* DELETE USER PIQ *//////////
+	// router.delete('/piq/:piq_id/delete', function(req, res, next) {
+	// 	setNav(req);
+	// 	isNotLoggedIn(req, res);
 
+	// 	// Delete piq from the database
+
+	// 	// Redirect to the Profile Page
+	// 	res.redirect('/profile', { navItems: navObj });
+	// });
 
 
 	//////////* DELETE USER *//////////
+	// router.delete('/user/:username/delete', function(req, res, next) {
+	// 	setNav(req);
+	// 	isNotLoggedIn(req, res);
+
+	// 	// Delete from the database
+
+	// 	// Redirect to the Profile Page
+	// 	res.redirect('/profile', { navItems: navObj });
+	// });
 
 
 //____AJAX ROUTES________________________________________________//
 
-	//////////* GET AJAX PIQS *//////////
+	//////////* AJAX GET PIQS *//////////
 	router.get('/ajax', function(req, res) {
 		mongoose.model('piqs').find(function(err, piqs) {
 			piqsData = piqs;
@@ -334,9 +359,17 @@ var userlist = [];
 		});
 	});
 
-	//////////* GET AJAX  *//////////
+	//////////* AJAX GET USER PIQUANCY  *//////////
+	// router.get('/ajax/:username', function(req, res) {
+	// 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
+	// 		mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
+	// 			myPiqs = piqs;
+
+	// 			res.send(myPiqs);
+	// 		});
+	// 	});
+	// });
 
 
-
-//____EXPORT________________________________________________//
+//____END OF ROUTES________________________________________________//
 module.exports = router;
