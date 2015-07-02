@@ -2,13 +2,11 @@
 	</header>
 
 	<div class="mainContainer">
-	  <p>Users:
-	    <ul>
-	      <% for (i = 0; i < users.length; i++) { %>
-		    <li><a href="/user/<%= users[i] %>"><%= users[i] %></a></li>
-	      <% } %>
-	    </ul>
-	  </p>
+		<form class="register" action="/login" method="post">
+			<input type="text" name="username" placeholder="Username">
+			<input type="text" name="password" placeholder="Password">
+			<input type="submit" value="Login">
+		</form>
 	</div>
 	<footer>
 	  <p><a href="/about">About</a></p>

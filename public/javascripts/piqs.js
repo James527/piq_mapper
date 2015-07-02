@@ -15,7 +15,7 @@ $(document).ready(function() {
 				var piqs = data;
 			
 				// Clears the container
-				$(".container").html('');
+				$(".piqContainer").html('');
 
 				// Iterating loop for the returned piqs data array
 				for (i=0; i<piqs.length; i++) {
@@ -23,7 +23,7 @@ $(document).ready(function() {
 					// console.log("Success! Here's the data! PiqID: " + piqs[i]._id + ", Color: " + piqs[i].color);
 
 					// Creates an html element for each piq
-					$(".container").append("<a class='plink' href='.'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
+					$(".piqContainer").append("<a class='plink' href='.'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
 				}
 
 				// Event listener for piqAttach
@@ -58,7 +58,7 @@ $(document).ready(function() {
 				var myPiqs = data;
 			
 				// Clears the container
-				$(".container").html('');
+				$(".piqContainer").html('');
 
 				// Iterating loop for the returned piqs data array
 				for (i=0; i<myPiqs.length; i++) {
@@ -66,7 +66,7 @@ $(document).ready(function() {
 					// console.log("Success! Here's the data! PiqID: " + piqs[i]._id + ", Color: " + piqs[i].color);
 
 					// Creates an html element for each piq
-					$(".container").append("<a class='plink' href='.'><div class='piq' style='background-color: " + myPiqs[i].color + "'></div></a>");
+					$(".piqContainer").append("<a class='plink' href='.'><div class='piq' style='background-color: " + myPiqs[i].color + "'></div></a>");
 				}
 
 				// Event listener for piqAttach

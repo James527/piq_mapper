@@ -1,13 +1,20 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /*background-image: url(http://i.imgur.com/AJxO4KO.jpg);*/
-  background-color: #2B2B2B;
-  color: #fff;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: #2B2B2B;
+	color: #fff;
+	margin: 0;
+}
+
+header {
+	background-image: url(/images/zwartevilt.png);
+	height: 13em;
+	margin: 0;
+	padding: 50px 50px 0px 50px;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+	text-decoration: none;
 }
 
 h1 a {
@@ -22,29 +29,59 @@ ul {
 	list-style-type: circle;
 }
 
-#brand {
-	font-style: italic;
+form {
+	background-color: #242424;
+	border: 1px solid #000;
+	margin: 9em 0 0 45%;
+	padding: 0;
+	width: 11em;
 }
 
-#nav {
-	
+input {
+	display: block;
+	margin: 1.2em;
+	padding: 0;
+}
+
+footer {
+	background-image: url(/images/zwartevilt.png);
+	height: 18em;
+	margin: 0;
+	padding: 1em 50px 0 50px;
+}
+
+#brand {
+	font-style: italic;
 }
 
 #ajaxLink {
 
 }
 
-.hidden{
-	display: none;
-}
-
-.container {
-	border: 2px solid #000;
-	width: 100%;
-}
-
 .navContainer {
 	float: right;
+}
+
+.navContainer a, .piqTail a, .piqTail span {
+	margin: 0 1em;
+}
+
+.mainContainer {
+	background-image: url(/images/fake_brick.png);
+	border: 2px solid #000;
+	min-height: 30em;
+	margin: 0;
+	padding: 0 50px;
+}
+
+.piq_form input {
+	display: inline-block;
+	margin: 1em 0 1em 1.2em;
+}
+
+.piqContainer {
+	margin: 1em 0;
+	padding: 0;
 }
 
 .plink {
@@ -58,4 +95,16 @@ ul {
 	width: 1.5em;
 	height: 1.5em;
 	margin: 0.5em;
+}
+
+.piqTail {
+	text-align: right;
+}
+
+.hidden{
+	display: none;
+}
+
+.clear {
+	clear: both;
 }

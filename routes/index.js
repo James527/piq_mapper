@@ -30,7 +30,7 @@ var userlist = [];
 	function setNav(req) {
 		// console.log(req.session.userId);
 		if (req.session.userId) {
-			return navObj = [{ref: "piq_form"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
+			return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
 		}
 		else {
 			return navObj = [{ref: "login"}, {ref: 'register'}];
@@ -50,7 +50,6 @@ var userlist = [];
 			// console.log('=====================');
 			// console.log(req.session);
 			// console.log(req.session.userId);
-			// console.log("navObj: " + navObj);
 
 		  res.render('index', { piqs: piqs, navItems: navObj });
 		});
@@ -71,7 +70,7 @@ var userlist = [];
 
 		// TODO: Pass register_check into render and take it out of header.ejs
 
-	  res.render('registration_form', { navItems: navObj });
+	  res.render('_registration_form', { navItems: navObj });
 	});
 
 	//////////* GET LOGIN FORM *//////////
@@ -79,7 +78,7 @@ var userlist = [];
 		setNav(req);
 		isLoggedIn(req, res);
 
-	  res.render('login_form', { navItems: navObj });
+	  res.render('_login_form', { navItems: navObj });
 	});
 
 	//////////* GET USERS PAGE *//////////
@@ -123,11 +122,11 @@ var userlist = [];
 	});
 
 	//////////* GET PIQ SUBMISSION FORM *//////////
-	router.get('/piq_form', function(req, res, next) {
+	router.get('/add_piq', function(req, res, next) {
 		setNav(req);
 		isNotLoggedIn(req, res);
 
-		res.render('piq_form', { navItems: navObj });
+		res.render('_piq_form', { navItems: navObj });
 	});
 
 	//////////* GET PIQ PAGE *//////////
@@ -171,21 +170,20 @@ var userlist = [];
 	});
 
 	//////////* GET USER UPDATE FORM *//////////
-	// router.get('/user/:username/update', function(req, res, next) {
-	// 	setNav(req);
-	// 	isNotLoggedIn(req, res);
-
+	router.get('/user/:username/update', function(req, res, next) {
+		setNav(req);
+		isNotLoggedIn(req, res);
 		
-	// 	res.render('update_form', { navItems: navObj });
-	// });
+		res.render('_update_form', { navItems: navObj });
+	});
 
 	//////////* GET PASSWORD RESET FORM *//////////
-	router.get('/password_reset', function(req, res, next) {
+	router.get('/reset', function(req, res, next) {
 		setNav(req);
 		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
 
 		
-		res.render('reset_password_form', { navItems: navObj });
+		res.render('_reset_password_form', { navItems: navObj });
 	});
 
 	//////////* GET USER STAT PAGE *//////////
@@ -198,12 +196,21 @@ var userlist = [];
 
 	//////////* GET LOGOUT *//////////
 	router.get('/logout', function(req, res, next) {
-		setNav(req);
+		// setNav(req);
 
-		// TODO: Clear the session data and set session var to false
+			// // User session
+			// console.log(req.cookies);
+			// console.log('=====================');
+			// console.log(req.session);
+			console.log(req.session.userId);
+
+		// Clear the session
+		req.session.userId = null;
+
 
 		// Redirect to login page
-		res.redirect('/login', { navItems: navObj }); // <-- REDIRECT NOT WORKING
+		isNotLoggedIn(req, res);
+		// res.redirect('/login'); // <-- REDIRECT NOT WORKING
 	});
 
 //____POST ROUTES________________________________________________//
@@ -241,7 +248,7 @@ var userlist = [];
 				if (err) return console.error(err);
 			});
 
-		  res.redirect('/users', { navItems: navObj });
+		  res.redirect('/users');
 		});
 	});
 
@@ -270,7 +277,7 @@ var userlist = [];
 	});
 
 	//////////* POST PIQ SUBMISSION *//////////
-	router.post('/piq_form', function(req, res, next) {
+	router.post('/add_piq', function(req, res, next) {
 		mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
 			mongoose.model('piqs').find(function(err, piqs, piqsSchema) {
 				setNav(req);
@@ -292,7 +299,7 @@ var userlist = [];
 					if (err) return console.error(err);
 				});
 
-			  res.redirect('/piqs', { navItems: navObj });
+			  res.redirect('/piqs');
 			});
 		});
 	});
@@ -300,25 +307,25 @@ var userlist = [];
 //____EDIT ROUTES________________________________________________//
 
 	//////////* UPDATE USER REGISTRATION  *//////////
-	// router.put('/user/:username/update', function(req, res, next) {
+	// router.put('/update', function(req, res, next) {
 	// 	setNav(req);
 	// 	isNotLoggedIn(req, res);
 
 		//Save changes to the database
 
 		//Redirect to the Users Profile Page
-	// 	res.redirect('/profile', { navItems: navObj });
+	// 	res.redirect('/profile');
 	// });
 
 	//////////* RESET PASSWORD *//////////
-	// router.put('/password_reset', function(req, res, next) {
+	// router.put('/reset', function(req, res, next) {
 		// setNav(req);
 		// isNotLoggedIn(req, res);
 
 		//Save changes to the database
 
 		//Redirect to the Login Page
-		// res.redirect('/login', { navItems: navObj });
+		// res.redirect('/login');
 	// });
 
 //____DELETE ROUTES________________________________________________//
@@ -331,7 +338,7 @@ var userlist = [];
 	// 	// Delete piq from the database
 
 	// 	// Redirect to the Profile Page
-	// 	res.redirect('/profile', { navItems: navObj });
+	// 	res.redirect('/profile');
 	// });
 
 
@@ -343,7 +350,7 @@ var userlist = [];
 	// 	// Delete from the database
 
 	// 	// Redirect to the Profile Page
-	// 	res.redirect('/profile', { navItems: navObj });
+	// 	res.redirect('/profile');
 	// });
 
 
@@ -366,7 +373,7 @@ var userlist = [];
 			res.send(myPiqs);
 		});
 
-		// This may come in handy
+		// This may come in handy later
 		// mongoose.model('users').find({_id: req.params.username}, function(err, users) {
 		// 	mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
 		// 		myPiqs = piqs;
