@@ -14,7 +14,7 @@ var app = express();
 
 // database setup
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/piqmapperdb')
+mongoose.connect('mongodb://heroku_g88sblng:rve7f8ieogdvfo0s9rkh6vf85p@ds031531.mongolab.com:31531/heroku_g88sblng');
 
 // load all files in models dir
 fs.readdirSync(__dirname + '/models').forEach(function(filename) {
@@ -26,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

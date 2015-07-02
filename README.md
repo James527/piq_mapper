@@ -1,11 +1,13 @@
 # piq_mapper
 Social-emotion mapping for you and your friends.
 
+
 pi·quan·cy (noun):
 
-- 1. a pleasantly sharp and appetizing flavor.
+1. a pleasantly sharp and appetizing flavor.
 
-- 2. the quality of being pleasantly stimulating or exciting.
+2. the quality of being pleasantly stimulating or exciting.
+
 
 PiqMapper is a social platform designed for color lovers and kindered spirits, those humans among us looking for a way to track their sentiments. With PiqMapper users create piquants, or piqs - little bubbles of color, representative of a users sentiments in a given moment. Express yourself without words. Log your emotions over time and see what kind of palatte you're working with. Was it an orange week? Did you have a teal blue year? Register and find out!
 
@@ -17,6 +19,9 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
 # Installation Instructions:
 
+Step 1: Be a wizard
+
+Step 2: Profit
 
 
 # User Stores:
