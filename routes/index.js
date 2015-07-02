@@ -328,12 +328,13 @@ var userlist = [];
 	//////////* GET AJAX PIQS *//////////
 	router.get('/ajax', function(req, res) {
 		mongoose.model('piqs').find(function(err, piqs) {
-			// console.log(req.body.objectData);
-			onePiq = piqs[0];
-			console.log(onePiq);
-		  res.send(onePiq);
+			piqsData = piqs;
+
+		  res.send(piqsData);
 		});
 	});
+
+	//////////* GET AJAX  *//////////
 
 
 

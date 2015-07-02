@@ -1,36 +1,30 @@
 // On Document ready
 $(document).ready(function() {
-	// alert('Doc Ready');
 	
 	// Event listener for AJAX button
 	$("#ajaxLink").on('click', function(event) {
 		event.preventDefault();
-		// alert('JQUERY HOORAY!');
-
-		// Clear the container
-		// $(".container").html('');
 
 		// AJAX accessing Piqs
 		$.ajax({
 			url: "/ajax",
-			// url: "http://localhost/3000/ajax",
 			method: "GET",
 			dataType: "json",
 			timeout: 5000,
 			success: function(data, textStatus, jqXHR) {
 				var piqs = data;
-				// alert("Success! Here's the data! PiqID: " + piqs._id + ", Color: " + piqs.color);
-				// $(".container").html('');
-				$(".container").append("<a class='plink' href='.'><div class='piq' style='background-color:" + piqs.color + "'></div></a>");
+			
+				// Clears the container
+				$(".container").html('');
 
-				// $(".container").append("<a class='plink' href="."><div class='piq' style='background-color:" + piqs.color + "'></div></a>");
+				// Iterating loop for the returned piqs data array
+				for (i=0; i<piqs.length; i++) {
+					// This console.log is client-side:
+					// console.log("Success! Here's the data! PiqID: " + piqs[i]._id + ", Color: " + piqs[i].color);
 
-
-				// Iterating loop listing the returned queries
-				// for (i=0; i<piqs.length; i++) {
-					// alert(piqs[i]);
-					// $(".container").append("<a class='plink' href='/piq/" + piqs[i]._id "'><div class='piq' style='background-color:" + piqs[i].color + "'></div></a>");
-				// }
+					// Creates an html element for each piq
+					$(".container").append("<a class='plink' href='.'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
+				}
 
 				// Event listener for piqAttach
 				// $("#gifAttach").click(function() {
@@ -40,10 +34,10 @@ $(document).ready(function() {
 
 			},
 			error: function() {
-				alert('Error!');
+				console.log('Error!');
 			},
 			complete: function() {
-				// alert('FIN');
+				console.log('FIN');
 			}
 
 		});
