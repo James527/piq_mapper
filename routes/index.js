@@ -359,15 +359,22 @@ var userlist = [];
 	});
 
 	//////////* AJAX GET USER PIQUANCY  *//////////
-	// router.get('/ajax/:username', function(req, res) {
-	// 	mongoose.model('users').find({username: req.params.username}, function(err, users) {
-	// 		mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
-	// 			myPiqs = piqs;
+	router.get('/ajax/piquancy', function(req, res) {
+		mongoose.model('piqs').find({user: req.session.userId}, function(err, piqs) {
+			myPiqs = piqs;
 
-	// 			res.send(myPiqs);
-	// 		});
-	// 	});
-	// });
+			res.send(myPiqs);
+		});
+
+		// This may come in handy
+		// mongoose.model('users').find({_id: req.params.username}, function(err, users) {
+		// 	mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
+		// 		myPiqs = piqs;
+
+		// 		res.send(myPiqs);
+		// 	});
+		// });
+	});
 
 
 //____END OF ROUTES________________________________________________//
