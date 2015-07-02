@@ -3,23 +3,24 @@ Social-emotion mapping for you and your friends.
 
 pi·quan·cy (noun):
 
-1. a pleasantly sharp and appetizing flavor.
+- 1. a pleasantly sharp and appetizing flavor.
 
-2. the quality of being pleasantly stimulating or exciting.
+- 2. the quality of being pleasantly stimulating or exciting.
+
+PiqMapper is a social platform designed for color lovers and kindered spirits, those humans among us looking for a way to track their sentiments. With PiqMapper users create piquants, or piqs - little bubbles of color, representative of a users sentiments in a given moment. Express yourself without words. Log your emotions over time and see what kind of palatte you're working with. Was it an orange week? Did you have a teal blue year? Register and find out!
+
 
 # Technologies Used:
 
-Node.js + Express
+Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
-MongoDB + Mongoose
-
-AJAX and jQuery
 
 # Installation Instructions:
 
 
 
 # User Stores:
+
 - As an END USER I want to REGISTER so I can be a USER
 - As a USER I want to LOGIN so I can ACCESS STUFF
 - As a USER I want to LOGOUT so I can GO OUTSIDE
@@ -31,32 +32,39 @@ AJAX and jQuery
 - As a USER I want to VIEW SOCIAL PIQ's so I can GAUGE SOCIAL MORALE
 - As a USER I want to DELETE MY ACCOUNT so I can BECOME A MORMAN
 
-# Wireframes:
+# Planning & Wireframes:
+
+- Concept design: http://i.imgur.com/7kJcAZq.jpg
+- ERD: http://i.imgur.com/vELlDRB.jpg
+- Routes: http://i.imgur.com/G3swY8y.jpg
+- Schedule: http://i.imgur.com/CGTA0Mq.jpg
+
 
 # Issues:
-- Error: Can't set headers after they are sent.
+- Keep an eye out for this error: Can't set headers after they are sent.
 
 ### TODO ###
 
 # TODO for MVP:
-- jQuery and AJAX on the front-end
-- CRUD functionality for Piqs
-- Logout redirect, register redirect, pi_submit redirect aren’t working for some reason
-- Two AJAX requests
-- Finish Styling
+- CRUD functionality for Users
+	* Update: User accounts & password reset
+	* Delete: User accounts
 - DEPLOYMENT!!!
 
 #TODO extras:
 - Serve public JS files through routes
 - Omit password where needed
 - Login submission redirect to profile
-- Password reset form
-- User stats page
-
+- Add timestamps to 'users' & 'piqs' collections
+	* Sort users piquancy over time
 - CSS Animations
-- Add “friend” collection
-	* Seed db
-	* Friend Routes
-	* Set permissions
-- Facebook API
+- Password reset
+- User stats page
+- Add 'friends' collection
+	* Seed the db w/ friends
+	* Make friends model & Schema
+	* Make friend routes
+	* Make friends view?
+	* Set friend permissions
+- Facebook API (user passport)
 - GitHub API
