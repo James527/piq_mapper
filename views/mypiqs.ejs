@@ -1,13 +1,22 @@
 <%- include('header') -%>
-	<p>MyPiqs!!!</p>
-	<p><%= mypiqs.length %> piqs</p>
+		<p>Piquancy</p>
+		<p><%= mypiqs.length %> piqs</p>
+	</header>
 
-    <div class="container">
-      <% for (i = 0; i < mypiqs.length; i++) { %>
-        <a class="plink" href="/piq/<%= mypiqs[i]._id %>">
-        	<div class="piq" style="background-color: <%= mypiqs[i].color %> ;"></div>
-        </a>
-      <% } %>
-    </div>
+	<div class="mainContainer">
+	    <div class="piqContainer">
+	      <% for (i = 0; i < mypiqs.length; i++) { %>
+	        <a class="plink" href="/piq/<%= mypiqs[i]._id %>">
+	        	<div class="piq" style="background-color: <%= mypiqs[i].color %> ;"></div>
+	        </a>
+	      <% } %>
+	    </div>
+	</div>
+	<footer>
+	  <p><a href="/about">About</a></p>
+	</footer>
 
-<%- include('footer') -%>
+<!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  </body>
+</html>

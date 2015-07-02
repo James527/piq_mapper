@@ -33,12 +33,11 @@
   	
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <h1><a href="/">PiqMapper</a></h1>
-    <p id="brand">Social-emotion tracking, with colors</p>
-    <div class="navContainer">
-      <div id="nav">
-        <% for (i = 0; i < navItems.length; i++) { %>
-          <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>
-        <% }; %>
-      </div>
-    </div>
+    <header>
+      <h1><a href="/">PiqMapper</a></h1>
+      <p id="brand">Social-emotion tracking, with colors ~</p>
+        <aside class="navContainer">|
+          <% for (i = 0; i < navItems.length; i++) { %>
+            <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
+          <% }; %>
+        </aside>

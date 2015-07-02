@@ -2,13 +2,10 @@
 	</header>
 
 	<div class="mainContainer">
-	  <p>Users:
-	    <ul>
-	      <% for (i = 0; i < users.length; i++) { %>
-		    <li><a href="/user/<%= users[i] %>"><%= users[i] %></a></li>
-	      <% } %>
-	    </ul>
-	  </p>
+		<form class="piq_form" action="/add_piq" method="post">
+			<input type="color" name="color" value="#FFFFFF">
+			<input type="submit" name="add" value="Add">
+		</form>
 	</div>
 	<footer>
 	  <p><a href="/about">About</a></p>
