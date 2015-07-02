@@ -14,7 +14,7 @@ var app = express();
 
 // database setup
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://heroku_g88sblng:rve7f8ieogdvfo0s9rkh6vf85p@ds031531.mongolab.com:31531/heroku_g88sblng');
+mongoose.connect('mongodb://heroku_n68mpdn0:a57kfm1is708fqb7f2cvjrejr4@ds061248.mongolab.com:61248/heroku_n68mpdn0');
 
 // load all files in models dir
 fs.readdirSync(__dirname + '/models').forEach(function(filename) {
