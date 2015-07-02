@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
-var _und = require('underscore');
 
 var router = express.Router();
 
