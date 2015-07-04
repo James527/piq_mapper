@@ -1,6 +1,8 @@
 {
   "name": "piq_mapper",
   "version": "1.0.2",
+  "description": "A Social Node.js app",
+  "main": "app.js",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -21,6 +23,15 @@
     "serve-favicon": "~2.2.1"
   },
   "engines": {
-    "node": "v0.12.2"
-  }
+    "node": "0.12.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/James527/piq_mapper"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
 }
