@@ -15,12 +15,11 @@
 
 <!-- FONT
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<!-- <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'> -->
+	<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
 
 <!-- CSS
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
 
 <!-- SCRIPTS
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -34,7 +33,10 @@
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <header>
-      <h1><a href="/">PiqMapper</a></h1>
+      <a href="/">
+        <img id="logo" src="/images/piq-mapper-logo.png">
+        <h1 id="title">PiqMapper</h1>
+      </a>
       <p id="brand">Social-emotion tracking, with colors ~</p>
         <aside class="navContainer">|
           <% for (i = 0; i < navItems.length; i++) { %>
