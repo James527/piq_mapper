@@ -28,7 +28,6 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
 // Local db connection
 // mongoose.connect('mongodb://localhost/piqmapperdb');
 
