@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 var session = require('express-session');
 
 var router = express.Router();
@@ -225,8 +225,8 @@ var userlist = [];
 			delete submission.password;
 
 			// Hash the users password synchronously:
-			var password = bcrypt.hashSync(submission.password_hash);
-			submission.password_hash = password;
+			// var password = bcrypt.hashSync(submission.password_hash);
+			// submission.password_hash = password;
 
 			// Hash the users password Asynchronously:
 			// bcrypt.genSalt(10, function(err, salt) {
@@ -264,7 +264,11 @@ var userlist = [];
 			var hash = users[0].password_hash;
 
 			// Compares the login password to the hashed password
-			pass = bcrypt.compareSync(login.password, hash);
+			// pass = bcrypt.compareSync(login.password, hash);
+
+			// Compares passwords
+			pass = (login.password == hash);
+
 			// If the passwords match...
 			if (pass) {
 				// ...start user session
