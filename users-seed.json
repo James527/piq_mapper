@@ -5,7 +5,7 @@
 {"username" : "user3", "password" : "Password0", "name" : "Joe Doe3", "email" : "user3@mail.com"}
 {"username" : "user4", "password" : "Password0", "name" : "Joe Doe4", "email" : "user4@mail.com"}
 {"username" : "user5", "password" : "Password0", "name" : "Joe Doe5", "email" : "user5@mail.com"}
-{"username" : "us6r6", "password" : "Password0", "name" : "Joe Do66", "email" : "user66@mail.com"}
+{"username" : "user6", "password" : "Password0", "name" : "Joe Doe6", "email" : "user6@mail.com"}
 {"username" : "user7", "password" : "Password0", "name" : "Joe Doe7", "email" : "user7@mail.com"}
 {"username" : "user8", "password" : "Password0", "name" : "Joe Doe8", "email" : "user8@mail.com"}
 {"username" : "user10", "password" : "Password0", "name" : "Joe Doe10", "email" : "user10@mail.com"}
@@ -15,7 +15,7 @@
 {"username" : "user14", "password" : "Password0", "name" : "Joe Doe14", "email" : "user14@mail.com"}
 {"username" : "user15", "password" : "Password0", "name" : "Joe Doe15", "email" : "user15@mail.com"}
 {"username" : "user16", "password" : "Password0", "name" : "Joe Doe16", "email" : "user16@mail.com"}
-{"username" : "us7r17", "password" : "Password0", "name" : "Joe D7e17", "email" : "us7er17@mail.com"}
+{"username" : "user17", "password" : "Password0", "name" : "Joe Doe17", "email" : "user17@mail.com"}
 {"username" : "user18", "password" : "Password0", "name" : "Joe Doe18", "email" : "user18@mail.com"}
 {"username" : "user19", "password" : "Password0", "name" : "Joe Doe19", "email" : "user19@mail.com"}
 {"username" : "user20", "password" : "Password0", "name" : "Joe Doe20", "email" : "user20@mail.com"}
@@ -25,7 +25,7 @@
 {"username" : "user24", "password" : "Password0", "name" : "Joe Doe24", "email" : "user24@mail.com"}
 {"username" : "user25", "password" : "Password0", "name" : "Joe Doe25", "email" : "user25@mail.com"}
 {"username" : "user26", "password" : "Password0", "name" : "Joe Doe26", "email" : "user26@mail.com"}
-{"username" : "us8r27", "password" : "Password0", "name" : "Joe D8e27", "email" : "us8er27@mail.com"}
+{"username" : "user27", "password" : "Password0", "name" : "Joe Doe27", "email" : "user27@mail.com"}
 {"username" : "user28", "password" : "Password0", "name" : "Joe Doe28", "email" : "user28@mail.com"}
 {"username" : "user29", "password" : "Password0", "name" : "Joe Doe29", "email" : "user29@mail.com"}
 {"username" : "user30", "password" : "Password0", "name" : "Joe Doe30", "email" : "user30@mail.com"}
@@ -35,7 +35,7 @@
 {"username" : "user34", "password" : "Password0", "name" : "Joe Doe34", "email" : "user34@mail.com"}
 {"username" : "user35", "password" : "Password0", "name" : "Joe Doe35", "email" : "user35@mail.com"}
 {"username" : "user36", "password" : "Password0", "name" : "Joe Doe36", "email" : "user36@mail.com"}
-{"username" : "us9r37", "password" : "Password0", "name" : "Joe D9e37", "email" : "us9er37@mail.com"}
+{"username" : "user37", "password" : "Password0", "name" : "Joe Doe37", "email" : "user37@mail.com"}
 {"username" : "user38", "password" : "Password0", "name" : "Joe Doe38", "email" : "user38@mail.com"}
 {"username" : "user39", "password" : "Password0", "name" : "Joe Doe39", "email" : "user39@mail.com"}
 {"username" : "user40", "password" : "Password0", "name" : "Joe Doe40", "email" : "user40@mail.com"}
@@ -89,5 +89,5 @@
 {"username" : "user97", "password" : "Password0", "name" : "Joe Doe97", "email" : "user97@mail.com"}
 {"username" : "user98", "password" : "Password0", "name" : "Joe Doe98", "email" : "user98@mail.com"}
 {"username" : "user99", "password" : "Password0", "name" : "Joe Doe99", "email" : "user99@mail.com"}
-{"username" : "user100", "password" : "Password0", "name" : "Joe Doe 0", "email" : "user100@mail.com"}
+{"username" : "user100", "password" : "Password0", "name" : "Joe Doe100", "email" : "user100@mail.com"}
 
