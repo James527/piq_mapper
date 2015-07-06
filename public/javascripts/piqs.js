@@ -19,18 +19,12 @@ $(document).ready(function() {
 
 				// Iterating loop for the returned piqs data array
 				for (i=0; i<piqs.length; i++) {
+					// Creates an html element for each piq
+					$(".piqContainer").append("<a class='plink' href='/piq/" + piqs[i]._id + "'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
+
 					// This console.log is client-side:
 					// console.log("Success! Here's the data! PiqID: " + piqs[i]._id + ", Color: " + piqs[i].color);
-
-					// Creates an html element for each piq
-					$(".piqContainer").append("<a class='plink' href='.'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
 				}
-
-				// Event listener for piqAttach
-				// $("#gifAttach").click(function() {
-				// 	var saveGif = $(this).prev();
-				// 	$("body").append("<img src='" + saveGif[0].src + "'>");
-				// });
 
 			},
 			error: function() {
@@ -62,18 +56,12 @@ $(document).ready(function() {
 
 				// Iterating loop for the returned piqs data array
 				for (i=0; i<myPiqs.length; i++) {
-					// This console.log is client-side:
-					// console.log("Success! Here's the data! PiqID: " + piqs[i]._id + ", Color: " + piqs[i].color);
-
 					// Creates an html element for each piq
-					$(".piqContainer").append("<a class='plink' href='.'><div class='piq' style='background-color: " + myPiqs[i].color + "'></div></a>");
-				}
+					$(".piqContainer").append("<a class='plink' href='/piq/" + myPiqs[i]._id + "'><div class='piq' style='background-color: " + myPiqs[i].color + "'></div></a>");
 
-				// Event listener for piqAttach
-				// $("#gifAttach").click(function() {
-				// 	var saveGif = $(this).prev();
-				// 	$("body").append("<img src='" + saveGif[0].src + "'>");
-				// });
+					// This console.log is client-side:
+					// console.log("Success! Here's the data! PiqUser: " + myPiqs[i]._id + ", Color: " + myPiqs[i].color);					
+				}
 
 			},
 			error: function() {
