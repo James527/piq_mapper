@@ -17,6 +17,9 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
 # Installation Instructions:
 
+1. Be a wizard
+
+2. Install everything
 
 
 # User Stores:
@@ -43,7 +46,7 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 # Issues:
 - Keep an eye out for this error: Can't set headers after they are sent.
 
-# TODO
+# TODO:
 
 ### TODO for MVP: ###
 - CRUD functionality for Users
