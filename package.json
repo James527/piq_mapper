@@ -18,7 +18,9 @@
     "express-session": "^1.11.3",
     "fs": "0.0.2",
     "less-middleware": "1.0.x",
+    "mongodb-uri": "^0.9.7",
     "mongoose": "^4.0.6",
+    "mongoose-timestamp": "^0.4.0",
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1"
   },

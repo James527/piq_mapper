@@ -222,11 +222,11 @@ var userlist = [];
 			isLoggedIn(req, res);
 
 			var submission = req.body;
-			delete submission.passwordAgain;
+			delete submission.password;
 
 			// Hash the users password synchronously:
-			var password_hash = bcrypt.hashSync(submission.password, 10);
-			submission.password = password_hash;
+			var password = bcrypt.hashSync(submission.password_hash, 10);
+			submission.password_hash = password;
 
 			// Hash the users password Asynchronously:
 			// bcrypt.genSalt(10, function(err, salt) {
@@ -261,7 +261,7 @@ var userlist = [];
 			var login = req.body;
 			var username = login.username;
 			var userId = users[0]._id;
-			var hash = users[0].password;
+			var hash = users[0].password_hash;
 
 			// Compares the login password to the hashed password
 			pass = bcrypt.compareSync(login.password, hash);
@@ -284,9 +284,7 @@ var userlist = [];
 				isNotLoggedIn(req, res);
 
 				var piq = req.body;
-				var uID = users[0]._id;
-				// console.log(uID);
-				piq.user = uID;
+				piq.u_id = users[0]._id;
 				// console.log(piq);
 
 				// Creates a Piq model
@@ -367,7 +365,7 @@ var userlist = [];
 
 	//////////* AJAX GET USER PIQUANCY  *//////////
 	router.get('/ajax/piquancy', function(req, res) {
-		mongoose.model('piqs').find({user: req.session.userId}, function(err, piqs) {
+		mongoose.model('piqs').find({u_id: req.session.userId}, function(err, piqs) {
 			myPiqs = piqs;
 
 			res.send(myPiqs);
