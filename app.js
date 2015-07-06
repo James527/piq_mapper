@@ -19,18 +19,18 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 // MongoLab db connection
-var mongodbUri = 'mongodb://user:pass@host:port/db';
-var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+// var mongodbUri = 'mongodb://user:pass@host:port/db';
+// var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
-mongoose.connect(mongooseUri, options);
+// mongoose.connect(mongooseUri, options);
 
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
+// db.on('error', console.error.bind(console, 'connection error:'));
 
 
 // Local db connection
-// mongoose.connect('mongodb://localhost/piqmapperdb');
+mongoose.connect('mongodb://localhost/piqmapperdb');
 
 
 // load all files in models dir

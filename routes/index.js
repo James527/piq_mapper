@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var session = require('express-session');
 
 var router = express.Router();
@@ -225,7 +225,7 @@ var userlist = [];
 			delete submission.password;
 
 			// Hash the users password synchronously:
-			var password = bcrypt.hashSync(submission.password_hash, 10);
+			var password = bcrypt.hashSync(submission.password_hash);
 			submission.password_hash = password;
 
 			// Hash the users password Asynchronously:
