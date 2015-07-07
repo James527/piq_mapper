@@ -7,9 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
-var routes = require('./routes/index');
-// var users = require('./routes/users');
-
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -40,9 +37,6 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-// Local db connection
-// mongoose.connect('mongodb://localhost/piqmapperdb');
-
 
 // load all files in models dir
 fs.readdirSync(__dirname + '/models').forEach(function(filename) {
@@ -52,6 +46,11 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename) {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+// routes
+var routes = require('./routes/index');
+// var users = require('./routes/users');
 
 
 app.use(session({
