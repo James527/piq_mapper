@@ -1,5 +1,5 @@
 var express = require('express');
-var session = require('express-session');
+// var session = require('express-session');
 var path = require('path');
 // var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -53,12 +53,12 @@ var routes = require('./routes/index');
 // var users = require('./routes/users');
 
 
-app.use(session({
-  secret: 'keyboard cat',
-  cookie: { maxAge: 60000},
-  saveUninitialized: true,
-  resave: true
-}));
+// app.use(session({
+//   secret: 'keyboard cat',
+//   cookie: { maxAge: 60000},
+//   saveUninitialized: true,
+//   resave: true
+// }));
 
 // app.use(session({
 //   secret: cookie_secret,
