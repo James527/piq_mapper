@@ -1,5 +1,5 @@
 var express = require('express');
-// var session = require('express-session');
+var session = require('express-session');
 var path = require('path');
 // var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -28,7 +28,7 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 // MongoLab db connection
-var mongodbUri = 'mongodb://heroku_dl3q2qlc:vupcdr4m7cruacqpefodt3hiru@ds043388.mongolab.com:43388/heroku_dl3q2qlc';
+var mongodbUri = process.env.MONGOLAB_URI||'mongodb://heroku_dl3q2qlc:vupcdr4m7cruacqpefodt3hiru@ds043388.mongolab.com:43388/heroku_dl3q2qlc';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri, options);
@@ -53,12 +53,12 @@ var routes = require('./routes/index');
 // var users = require('./routes/users');
 
 
-// app.use(session({
-//   secret: 'keyboard cat',
-//   cookie: { maxAge: 60000},
-//   saveUninitialized: true,
-//   resave: true
-// }));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { maxAge: 60000},
+  saveUninitialized: true,
+  resave: true
+}));
 
 // app.use(session({
 //   secret: cookie_secret,
