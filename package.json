@@ -2,7 +2,7 @@
   "name": "piq_mapper",
   "version": "1.0.2",
   "description": "A Social Node.js app",
-  "main": "app.js",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "start": "node index.js"
