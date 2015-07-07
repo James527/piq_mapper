@@ -8,26 +8,38 @@ var app = require('../app');
 var debug = require('debug')('piq_mapper:server');
 var http = require('http');
 
+
+/**
+ * Set port for app and listen.
+ */
+
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5000');
-app.set('port', port);
+// var port = normalizePort(process.env.PORT || '5000');
+// app.set('port', port);
+
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
