@@ -12,6 +12,18 @@ var routes = require('./routes/index');
 
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
+// uncomment after placing your favicon in /public
+// app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 // database setup
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
@@ -28,7 +40,6 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
 // Local db connection
 // mongoose.connect('mongodb://localhost/piqmapperdb');
 
@@ -42,14 +53,6 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(__dirname + '/public/images/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: 'keyboard cat',
@@ -102,4 +105,9 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
+
+// module.exports = app;
