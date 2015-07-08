@@ -1,5 +1,5 @@
 # piq_mapper
-Social-emotion mapping for you and your friends.
+Social-emotion tracking, with colors.
 
 pi·quan·cy (noun):
 
@@ -48,11 +48,14 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
 # TODO:
 
+### TODO for DEPLOYMENT: ###
+- Resolve Node Modules recursive dependency-chain errors
+- DEPLOYMENT!!!
+
 ### TODO for MVP: ###
 - CRUD functionality for Users
 	* Update: User accounts & password reset
 	* Delete: User accounts
-- DEPLOYMENT!!!
 
 ### TODO extras: ###
 - Serve public JS files through routes
