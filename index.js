@@ -54,19 +54,13 @@ var routes = require('./routes/index');
 
 app.use(session({
   secret: 'keyboard cat',
+  // name: cookie_name,
   cookie: { maxAge: 60000},
+//   store: sessionStore, // connect-mongo session store
+//   proxy: true,
   saveUninitialized: true,
   resave: true
 }));
-
-// app.use(session({
-//   secret: cookie_secret,
-//   name: cookie_name,
-//   store: sessionStore, // connect-mongo session store
-//   proxy: true,
-//   resave: true,
-//   saveUninitialized: true
-// }));
 
 app.use('/', routes);
 // app.use('/users', users);
