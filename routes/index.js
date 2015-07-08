@@ -258,19 +258,18 @@ var userlist = [];
 			setNav(req);
 			// isLoggedIn(req, res);
 
-			console.log(users);
-
 			var login = req.body;
-			console.log(login.username);
-			var username = login.username;
+			// var username = login.username;
 			var userId = users[0]._id;
 			var hash = users[0].password_hash;
 
+			// console.log(users);
+			// console.log(req.body);
+			// console.log(userId);
+			// console.log(hash);
+
 			// Compares the login password to the hashed password
 			pass = bcrypt.compareSync(login.password, hash);
-
-			// Compares passwords
-			pass = (login.password == hash);
 
 			// If the passwords match...
 			if (pass) {
@@ -278,9 +277,9 @@ var userlist = [];
 				var user = users[0];
 				req.session.userId = userId;
 				
-				console.log(req.session.userId);
+				// console.log(req.session.userId);
 
-				// res.redirect('/users'); // <-- TODO: Redirect to Profile
+				res.redirect('/users'); // <-- TODO: Redirect to Profile
 			}
 		});
 	});
