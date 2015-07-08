@@ -256,7 +256,7 @@ var userlist = [];
 	router.post('/login', function(req, res, next) {
 		mongoose.model('users').find({username: req.body.username}, function(err, users) {
 			setNav(req);
-			isLoggedIn(req, res);
+			// isLoggedIn(req, res);
 
 			var login = req.body;
 			var username = login.username;
