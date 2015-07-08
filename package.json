@@ -1,6 +1,6 @@
 {
   "name": "piq_mapper",
-  "version": "0.2.0",
+  "version": "0.0.3",
   "description": "Social-emotion tracking, with colors.",
   "main": "index.js",
   "private": true,

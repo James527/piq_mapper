@@ -48,10 +48,6 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
 # TODO:
 
-### TODO for DEPLOYMENT: ###
-- Resolve Node Modules recursive dependency-chain errors
-- DEPLOYMENT!!!
-
 ### TODO for MVP: ###
 - CRUD functionality for Users
 	* Update: User accounts & password reset
@@ -61,8 +57,6 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 - Serve public JS files through routes
 - Omit password where needed
 - Login submission redirect to profile
-- Add timestamps to 'users' & 'piqs' collections
-	* Sort users piquancy over time
 - CSS Animations
 - Password reset
 - User stats page

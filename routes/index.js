@@ -28,7 +28,6 @@ var userlist = [];
 
 	// // Checks if current session has userId and passes one of the two Nav Objects
 	function setNav(req) {
-		// console.log(req.session.userId);
 		if (req.session.userId) {
 			return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
 		}
@@ -44,12 +43,6 @@ var userlist = [];
 	router.get('/', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
 			setNav(req);
-
-			// // User session
-			// console.log(req.cookies);
-			// console.log('=====================');
-			// console.log(req.session);
-			// console.log(req.session.userId);
 
 		  res.render('index', { piqs: piqs, navItems: navObj });
 		});
@@ -68,7 +61,6 @@ var userlist = [];
 		isLoggedIn(req, res);
 
 		// TODO: Pass register_check into render and take it out of header.ejs
-
 	  res.render('_registration_form', { navItems: navObj });
 	});
 
@@ -103,10 +95,7 @@ var userlist = [];
 			var user = users[0];
 
 			// TODO: Don't pass the user object into the page
-			// without omitting the password
-			// underscore isn't working for some reason
-			// var dude = underscore.omit(user, 'password');
-
+			// without omitting the password (underscore?)
 			res.render('profile', { user: user, navItems: navObj });
 		});
 	});
@@ -132,13 +121,22 @@ var userlist = [];
 	//////////* GET PIQ PAGE *//////////
 	router.get('/piq/:piq_id', function(req, res, next) {
 		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
+			// Set up another callback to get the piq's user data
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			console.log(piqs);
+			// console.log(piqs);
 			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
+	// EXAMPLE - Getting the user through piqs:
+	// app.get('/piqs/:userId', function(req, res) {
+	//   mongoose.model('piqs').find({user: req.params.userId}, function(err, piqs) {
+	//     mongoose.model('piqs').populate(piqs, {path: 'user'}, function(err, piqs) {
+	//       res.send(piqs);
+	//     });
+	//   });
+	// });
 
 	//////////* GET USERS PIQS PAGE *//////////
 	router.get('/user/:username/piquancy', function(req, res, next) {
@@ -152,17 +150,9 @@ var userlist = [];
 		});
 	});
 
-	// EXAMPLE - Getting the user through piqs:
-	// app.get('/piqs/:userId', function(req, res) {
-	//   mongoose.model('piqs').find({user: req.params.userId}, function(err, piqs) {
-	//     mongoose.model('piqs').populate(piqs, {path: 'user'}, function(err, piqs) {
-	//       res.send(piqs);
-	//     });
-	//   });
-	// });
-
 	//////////* GET USER PROFILE PAGE *//////////
 	router.get('/profile', function(req, res, next) {
+		// Get user data from session id
 		setNav(req);
 		isNotLoggedIn(req, res);
 
@@ -171,9 +161,11 @@ var userlist = [];
 
 	//////////* GET USER UPDATE FORM *//////////
 	router.get('/user/:username/update', function(req, res, next) {
+		// Get user data from session id
 		setNav(req);
 		isNotLoggedIn(req, res);
-		
+
+		// Send off proper data to the form in the ejs file
 		res.render('_update_form', { navItems: navObj });
 	});
 
@@ -182,7 +174,6 @@ var userlist = [];
 		setNav(req);
 		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
 
-		
 		res.render('_reset_password_form', { navItems: navObj });
 	});
 
@@ -198,19 +189,12 @@ var userlist = [];
 	router.get('/logout', function(req, res, next) {
 		// setNav(req);
 
-			// // User session
-			// console.log(req.cookies);
-			// console.log('=====================');
-			// console.log(req.session);
-			// console.log(req.session.userId);
-
 		// Clear the session
 		req.session.userId = null;
 
-
 		// Redirect to login page
 		isNotLoggedIn(req, res);
-		res.redirect('/login'); // <-- REDIRECT NOT WORKING
+		res.redirect('/login');
 	});
 
 //____POST ROUTES________________________________________________//
@@ -234,7 +218,6 @@ var userlist = [];
 			// 	// 	// console.log();
 			// 	// });
 			// });
-
 			// console.log(submission);
 			// console.log(submission.username + ", " + submission.email + ", " + submission.name + ", " + password_hash);
 
@@ -268,6 +251,9 @@ var userlist = [];
 
 				res.redirect('/users'); // <-- TODO: Redirect to Profile
 			}
+			else {
+				alert('Something went wrong...');
+			}
 		});
 	});
 
@@ -280,11 +266,9 @@ var userlist = [];
 
 				var piq = req.body;
 				piq.u_id = users[0]._id;
-				// console.log(piq);
 
 				// Creates a Piq model
 				var Piq = mongoose.model('piqs', piqsSchema);
-
 				// Makes a newPiq object from the model...
 				var newPiq = new Piq(piq);
 				// ...and saves it to the database
@@ -363,9 +347,10 @@ var userlist = [];
 		mongoose.model('piqs').find({u_id: req.session.userId}, function(err, piqs) {
 			myPiqs = piqs;
 
+			console.log(req);
+
 			res.send(myPiqs);
 		});
-
 		// This may come in handy later
 		// mongoose.model('users').find({_id: req.params.username}, function(err, users) {
 		// 	mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
