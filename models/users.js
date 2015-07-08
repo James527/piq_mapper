@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var timestamps = require('mongoose-timestamp');
+// var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var usersSchema = mongoose.Schema({
@@ -8,6 +8,6 @@ var usersSchema = mongoose.Schema({
 	name: String,
 	email: String
 });
-usersSchema.plugin(timestamps);
+// usersSchema.plugin(timestamps);
 
 mongoose.model('users', usersSchema);
