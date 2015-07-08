@@ -256,28 +256,15 @@ var userlist = [];
 	router.post('/login', function(req, res, next) {
 		mongoose.model('users').find({username: req.body.username}, function(err, users) {
 			setNav(req);
-			// isLoggedIn(req, res);
-
-			var login = req.body;
-			// var username = login.username;
-			var userId = users[0]._id;
-			var hash = users[0].password_hash;
-
-			// console.log(users);
-			// console.log(req.body);
-			// console.log(userId);
-			// console.log(hash);
+			isLoggedIn(req, res);
 
 			// Compares the login password to the hashed password
-			pass = bcrypt.compareSync(login.password, hash);
+			pass = bcrypt.compareSync(req.body.password, users[0].password_hash);
 
 			// If the passwords match...
 			if (pass) {
 				// ...start user session
-				var user = users[0];
-				req.session.userId = userId;
-				
-				// console.log(req.session.userId);
+				req.session.userId = users[0]._id;
 
 				res.redirect('/users'); // <-- TODO: Redirect to Profile
 			}
