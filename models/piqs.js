@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var piqsSchema = new Schema({
+	createdAt: new Date(),
+	updatedAt: new Date(),
 	color: String,
 	u_id: {
 		type: Schema.ObjectId,

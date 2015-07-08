@@ -258,7 +258,10 @@ var userlist = [];
 			setNav(req);
 			// isLoggedIn(req, res);
 
+			console.log(users);
+
 			var login = req.body;
+			console.log(login.username);
 			var username = login.username;
 			var userId = users[0]._id;
 			var hash = users[0].password_hash;
@@ -274,8 +277,10 @@ var userlist = [];
 				// ...start user session
 				var user = users[0];
 				req.session.userId = userId;
+				
+				console.log(req.session.userId);
 
-				res.redirect('/users'); // <-- TODO: Redirect to Profile
+				// res.redirect('/users'); // <-- TODO: Redirect to Profile
 			}
 		});
 	});
