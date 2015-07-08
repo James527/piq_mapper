@@ -31,7 +31,7 @@ $(document).ready(function() {
 				console.log('Error!');
 			},
 			complete: function() {
-				console.log('FIN');
+				// console.log('FIN');
 			}
 
 		});
@@ -68,7 +68,7 @@ $(document).ready(function() {
 				console.log('Error!');
 			},
 			complete: function() {
-				console.log('FIN');
+				// console.log('FIN');
 			}
 
 		});
