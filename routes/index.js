@@ -225,7 +225,7 @@ var userlist = [];
 			delete submission.password;
 
 			// Hash the users password synchronously:
-			var password = bcrypt.hashSync(submission.password_hash);
+			var password = bcrypt.hashSync(submission.password_hash, 10);
 			submission.password_hash = password;
 
 			// Hash the users password Asynchronously:
