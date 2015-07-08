@@ -1,15 +1,13 @@
 var mongoose = require('mongoose');
-// var timestamps = require('mongoose-timestamp');
+var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var usersSchema = mongoose.Schema({
-	createdAt: new Date(),
-	updatedAt: new Date(),
 	username: String,
 	password_hash: String,
 	name: String,
 	email: String
 });
-// usersSchema.plugin(timestamps);
+usersSchema.plugin(timestamps);
 
 mongoose.model('users', usersSchema);
