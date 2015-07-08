@@ -26,7 +26,7 @@ var userlist = [];
 		}
 	};
 
-	// Checks if current session has userId and passes one of the two Nav Objects
+	// // Checks if current session has userId and passes one of the two Nav Objects
 	function setNav(req) {
 		// console.log(req.session.userId);
 		if (req.session.userId) {
@@ -58,7 +58,6 @@ var userlist = [];
 	//////////* GET ABOUT PAGE *//////////
 	router.get('/about', function(req, res, next) {
 		setNav(req);
-
 		
 		res.render('about', { navItems: navObj });
 	});
@@ -86,6 +85,7 @@ var userlist = [];
 		mongoose.model('users').find(function(err, users) {
 			setNav(req);
 			isNotLoggedIn(req, res);
+
 			userlist = [];
 			for (i = 0; i < users.length; i++) {
 				userlist.push(users[i].username);
@@ -189,7 +189,7 @@ var userlist = [];
 	//////////* GET USER STAT PAGE *//////////
 	// router.get('/user/:username/stats', function(req, res, next) {
 	// 	setNav(req);
-		isNotLoggedIn(req, res);
+	// 	isNotLoggedIn(req, res);
 
 		// Send stats to the Profile Page
 	// });
@@ -288,7 +288,7 @@ var userlist = [];
 				isNotLoggedIn(req, res);
 
 				var piq = req.body;
-				// piq.u_id = users[0]._id;
+				piq.u_id = users[0]._id;
 				// console.log(piq);
 
 				// Creates a Piq model
@@ -303,7 +303,7 @@ var userlist = [];
 
 			  res.redirect('/piqs');
 			});
-		// });
+		});
 	});
 
 //____EDIT ROUTES________________________________________________//
