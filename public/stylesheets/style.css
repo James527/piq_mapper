@@ -1,3 +1,5 @@
+/*____MAIN STYLES________________________________________________*/
+
 body {
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 	background-color: #2B2B2B;
@@ -41,6 +43,9 @@ footer {
 	margin: 0;
 	padding: 1em 50px 0 50px;
 }
+
+
+/*____CLASS & ID STYLES________________________________________________*/
 
 #logo {
 	display: inline-block;
