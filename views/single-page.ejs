@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+<!-- Basic Page Needs
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta charset="utf-8">
+  <title>PiqMapper</title>
+	<meta name="description" content="Social-emotion tracking, with colors">
+	<meta name="author" content="James Rutledge">
+
+<!-- Mobile Specific Metas
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- FONT
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href='//fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+
+<!-- CSS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <style type="text/css">
+
+      .mainContainer {
+        padding: 0;
+        height: 30em;
+      }
+
+      .mainWrap {
+
+      }
+
+      .piqContainer {
+        height: 29em;
+        position: absolute;
+        padding: 1em 50px 0;
+        margin: 0;
+      }
+
+      .modalWrap {
+        background-color: rgba(0,0,0,0.5);
+        height: 30em;
+        position: relative;
+        padding: 0 50px;
+      }
+
+      .modalContainer {
+        margin:  0;
+        /*padding: 8em 0 0 40%;*/
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #aboutWrap {
+        padding: 2.5em 0 0;
+        margin: 0 20%;
+      }
+
+      #aboutContainer {
+        background-color: #242424;
+        border: 1px solid #000;
+        padding: 0 4em 0.83em;
+      }
+
+      form {
+        display: inline-block;
+        margin: 0;
+        width: 12em;
+      }
+
+    </style>
+
+<!-- SCRIPTS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/register_check.js"></script>
+    <script type="text/javascript" src="/javascripts/piqs.js"></script>
+
+  </head>
+  <body>
+  	
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <header>
+      <a href="/">
+        <img id="logo" src="/images/piq-mapper-logo.png">
+        <h1 id="title">PiqMapper</h1>
+      </a>
+      <p id="brand">Social-emotion tracking, with colors ~</p>
+        <aside class="navContainer">|
+          <% for (i = 0; i < navItems.length; i++) { %>
+            <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
+          <% }; %>
+        </aside>
+        <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
+    </header>
+
+<!-- Main -->
+
+    <div class="mainContainer">
+      <div class="mainWrap">
+        <!-- MAKE PIQCONTAINER ABSOLUTE AND APART FROM FLOW -->
+        <div class="piqContainer">
+          <% for (i = 0; i < piqs.length; i++) { %>
+            <a class="plink" href="/piq/<%= piqs[i]._id %>">
+              <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
+            </a>
+          <% } %>
+          <p class="piqTail"><span>Piqs: <%= piqs.length %></span></p>
+        </div>
+        <div class="modalWrap">
+          <div class="modalContainer">
+
+            <form class="hidden" action="/login" method="post">
+              <h2>Login</h2>
+              <input type="text" name="username" placeholder="Username">
+              <input type="password" name="password" placeholder="Password">
+              <input type="submit" value="Login">
+            </form><!-- /Login Form -->
+
+            <form class="hidden" name="register_form" onsubmit="return checkForm(this);" action="/register" method="post">
+              <input type="text" name="username" placeholder="Username">
+              <input type="text" name="email" placeholder="Email">
+              <input type="text" name="name" placeholder="Full Name">
+              <input type="password" name="password" placeholder="Password">
+              <input type="password" name="password_hash" placeholder="Confirm Password">
+              <input type="submit" name="register" value="Register">
+            </form><!-- /Registration Form -->
+
+            <div id="aboutWrap">
+              <div id="aboutContainer">
+                <h2>about:</h2>
+                <p>pi·quan·cy (noun):</p>
+                <p>1. a pleasantly sharp and appetizing flavor.</p>
+                <p>2. the quality of being pleasantly stimulating or exciting.</p>
+                <p>PiqMapper is a social platform designed for those color lovers wanting to track their sentiments over time. With PiqMapper users create piquants, or piqs (pronounced like "peeks") - little bubbles of color that represent instances of emotion. Express yourself without words: Was it an aqua-green week? Did you have a very purple year? Log your emotions over time and see what kind of palatte you're working with.</p>
+              </div>
+            </div><!-- /#aboutWrap -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Piq Form -->
+
+  <div class="mainContainer">
+    <form class="piq_form" action="/add_piq" method="post">
+      <input type="color" name="color" value="#FFFFFF">
+      <input type="submit" name="add" value="Add">
+    </form>
+  </div>
+
+<!-- Reset Password -->
+
+  <div class="mainContainer">
+    <form name="reset_password_form" action="/reset" method="put">
+      <input type="text" name="username" placeholder="Username">
+      <input type="text" name="oldPassword" placeholder="Old Password">
+      <input type="password" name="newPassword" placeholder="New Password">
+      <input type="password" name="newPasswordAgain" placeholder="Confirm New Password">
+      <input type="submit" name="reset" value="Reset">
+    </form>
+  </div>
+
+<!-- Update Form -->
+
+  <div class="mainContainer">
+    <form name="update_form" onsubmit="return checkForm(this);" action="/update" method="put">
+      <input type="text" name="username" placeholder="Username">
+      <input type="text" name="email" placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <input type="password" name="passwordAgain" placeholder="Confirm Password">
+      <input type="submit" name="update" value="Update">
+    </form>
+  </div>
+
+
+<!-- Users -->
+
+  <div class="mainContainer">
+    <p>Users:
+      <ul>
+        <% for (i = 0; i < users.length; i++) { %>
+        <li><a href="/user/<%= users[i] %>"><%= users[i] %></a></li>
+        <% } %>
+      </ul>
+    </p>
+  </div>
+
+<!-- END -->
+
+    <footer>
+      <p><a href="/about">About</a></p>
+    </footer>
+
+<!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  </body>
+</html>
