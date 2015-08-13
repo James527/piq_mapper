@@ -1,3 +1,5 @@
+//Gems
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
@@ -6,9 +8,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
 var app = express();
 
+//Enviornment
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 app.set('port', (process.env.PORT || 5000));
 
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
@@ -19,14 +22,15 @@ app.use(cookieParser());
 // app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// database setup
+//Database Setup
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 // MongoLab db connection
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 var mongodbUri = process.env.MONGOLAB_URI||'mongodb://heroku_dl3q2qlc:vupcdr4m7cruacqpefodt3hiru@ds043388.mongolab.com:43388/heroku_dl3q2qlc';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
@@ -47,10 +51,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-// routes
+// Routes
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 var routes = require('./routes/index');
 // var users = require('./routes/users');
-
 
 app.use(session({
   secret: 'keyboard cat',
@@ -72,7 +76,8 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+// Error Handlers
+//––––––––––––––––––––––––––––––––––––––––––––––––––//
 
 // development error handler
 // will print stacktrace
@@ -96,10 +101,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
 
 module.exports = app;

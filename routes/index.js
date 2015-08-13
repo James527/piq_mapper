@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
-
 var router = express.Router();
 
 // Setting app variables
@@ -38,6 +37,17 @@ var userlist = [];
 
 
 //____PAGE ROUTES________________________________________________//
+
+
+	//////////* GET OLD INDEX *//////////
+	router.get('/old-index', function(req, res, next) {
+		mongoose.model('piqs').find(function(err, piqs) {
+			setNav(req);
+
+		  res.render('old-index', { piqs: piqs, navItems: navObj });
+		});
+	});
+
 
 	//////////* GET HOME PAGE *//////////
 	router.get('/', function(req, res, next) {
