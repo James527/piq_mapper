@@ -45,15 +45,24 @@
 	</header>
 
 	<div class="mainContainer">
-	  <p>User Profile:
-	    <ul>
-	    	<li><%= user.username %></li>
-	    	<li><%= user.name %></li>
-	    	<li><%= user.email %></li>
-	    </ul>
-	  </p>
-	  <div class="piqContainer"></div>
+    <div id="profileModal">
+      <div id="profileContainer">
+        <p>User Profile:
+          <ul>
+            <li><%= user.username %></li>
+            <li><%= user.name %></li>
+            <li><%= user.email %></li>
+          </ul>
+        </p>
+      </div>
+      <div id="myPiqsContainer">
+        <div id="myPiqsWrapper">
+          <p>My Piquancy:</p>
+        </div>
+      </div>
+    </div><!-- /#profileModal -->
 	</div>
+
 	<footer>
 	</footer>
 

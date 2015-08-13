@@ -67,7 +67,6 @@ var userlist = [];
 
 
 
-
 	//////////* GET USER ACCOUNT *//////////
 	router.get('/user/:username', function(req, res) {
 		mongoose.model('users').find({username: req.params.username}, function(err, users) {

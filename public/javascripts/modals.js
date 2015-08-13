@@ -178,12 +178,19 @@ $(document).ready(function() {
   });
 
 
-  //TEMPORARY HIDE MODALS TESTER:
-  //Event listener for logoutLink
-  $("#logoutLink").on('click', function(event) {
+  //Event listener for clearLink
+  $("#clearLink").on('click', function(event) {
     event.preventDefault();
     hideActive();
     hideModalWrap();
   });
+
+
+  //Event listener for logoutLink
+  // $("#logoutLink").on('click', function(event) {
+    // event.preventDefault();
+    // hideActive();
+    // hideModalWrap();
+  // });
 
 });
