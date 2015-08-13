@@ -70,10 +70,6 @@ footer {
 	font-style: italic;
 }
 
-#ajaxLink {
-
-}
-
 nav a, .piqTail a, .piqTail span {
 	margin: 0 1em;
 }
@@ -98,7 +94,7 @@ nav a, .piqTail a, .piqTail span {
 }
 
 .piqContainer {
-	height: 25em;
+	height: 28em;
 	margin: 0;
 }
 
