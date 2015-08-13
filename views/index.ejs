@@ -45,15 +45,6 @@
             <a id="<%= navItems[i].ref %>Link" href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
           <% }; %>
         </nav>
-<!--         <nav>|
-            <a id="loginLink">login</a>|
-            <a id="registerLink">register</a>|          
-            <a id="add_piqLink">add_piq</a>|
-            <a id="resetLink">reset password</a>|
-            <a id="updateLink">update account</a>|
-            <a id="logoutLink">logout</a>|
-        </nav> -->
-
         <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
     </header>
 
@@ -133,21 +124,8 @@
               <div id="myPiqsWrapper">
                 <p>My Piquancy:</p>
               </div>
-              <!-- <p class="piqTail"><a id="myPiquancy" href=".">AJAX PIQUANCY</a></p> -->
             </div>
           </div><!-- /#profileModal -->
-
-<!--           <div class="hidden" id="piqModal">
-            <div id="piqContainer">
-              <p>Piq:
-                <div id="singlePiq"></div>
-                <div class="piq" style="background-color: white ;"></div>
-              </p>
-              <p>Piq ID:<span id="piqID"></span></p>
-              <p>User:<span id="piqUser"></span></p>
-              <p>Created:<span id="piqCreated"></span></p>
-            </div>
-          </div> -->
 
           <div class="hidden" id="aboutModal">
             <div id="aboutContainer">
@@ -165,13 +143,12 @@
 
     <footer>
       <nav>|
-          <a id="piqLink" href="/ajax/piq">piq</a>|
-          <a id="aboutLink" href="/about">About</a>|
-          <a id="profileLink" href="/profile">Profile</a>|
-          <a id="add_piqLink">add_piq</a>|
-          <a id="resetLink">reset password</a>|
-          <a id="updateLink">update account</a>|
-          <a id="logoutLink">clear</a>|
+          <a id="aboutLink" href="/about">about</a>|
+          <a id="profileLink" href="/profile">profile</a>|
+          <a id="add_piqLink" href="/add_piq">add_piq</a>|
+          <a id="resetLink" href="/reset">reset password</a>|
+          <a id="updateLink" href="/update">update account</a>|
+          <a id="logoutLink" href="/logout">clear</a>|
       </nav>
     </footer>
 
