@@ -43,10 +43,12 @@ var userlist = [];
 	//////////* GET HOME PAGE *//////////
 	router.get('/', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
-			setNav(req);
-			// isLoggedIn(req, res);
+			mongoose.model('users').find(function(err, users) {
+				setNav(req);
+				// isLoggedIn(req, res);
 
-		  res.render('index', { piqs: piqs, navItems: navObj });
+			  res.render('index', { piqs: piqs, navItems: navObj });
+			});
 		});
 	});
 
@@ -378,6 +380,24 @@ var userlist = [];
 		// 		res.send(myPiqs);
 		// 	});
 		// });
+	});
+
+	//////////* AJAX GET USER PROFILE  *//////////
+	router.get('/ajax/profile', function(req, res) {
+		mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
+			profileID = users[0]._id;
+
+			mongoose.model('piqs').find({u_id: profileID}, function(err, piqs) {
+				thisUser = users[0];
+				myPiqs = piqs;
+
+				console.log(thisUser);
+				console.log(myPiqs);
+
+				res.send({ user: thisUser, piqs: myPiqs });
+			});
+		});
+
 	});
 
 

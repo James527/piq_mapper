@@ -1,8 +1,7 @@
 
-
         <nav>|
           <% for (i = 0; i < navItems.length; i++) { %>
-            <a id="<%= navItems[i].ref %>Link"><%= navItems[i].ref %></a>|
+            <a id="<%= navItems[i].ref %>Link" href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
           <% }; %>
         </nav>
 
@@ -12,6 +11,9 @@
               <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
             </a>
           <% } %>
+
+
+            <p class="piqTail"><span>Piqs: <%= piqs.length %></span> | <a id="ajaxLink" href=".">AJAX GET PIQS</a></p>
 
 
 <!-- Profile -->
