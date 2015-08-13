@@ -51,10 +51,6 @@
         padding: 5.2em 0 0 40%;
       }
 
-      .hidden {
-        display: none;
-      }
-
       #aboutModal {
         padding: 2.5em 0 0;
         margin: 0 20%;
@@ -70,6 +66,14 @@
         display: inline-block;
         margin: 0;
         width: 12em;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .active {
+        display: block;
       }
 
     </style>
@@ -91,11 +95,27 @@
         <h1 id="title">PiqMapper</h1>
       </a>
       <p id="brand">Social-emotion tracking, with colors ~</p>
+
         <aside class="navContainer">|
-          <% for (i = 0; i < navItems.length; i++) { %>
-            <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
-          <% }; %>
+            <a id="loginLink">login</a>|
+            <a id="regLink">register</a>|          
+            <a id="addPiqLink">add_piq</a>|
+            <a id="resetLink">reset password</a>|
+            <a id="updateLink">update account</a>|
+            <a id="logoutLink">logout</a>|
         </aside>
+
+<!--         <aside class="navContainer hidden" id="basicNav">|
+            <a id="loginLink">login</a>|
+            <a id="regLink">register</a>|
+        </aside>
+        <aside class="navContainer hidden" id="userNav">|
+            <a id="addPiqLink">add_piq</a>|
+            <a id="resetLink">reset password</a>|
+            <a id="updateLink">update account</a>|
+            <a id="logoutLink">logout</a>|
+        </aside> -->
+
         <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
     </header>
 
@@ -111,19 +131,20 @@
             </a>
           <% } %>
           <p class="piqTail"><span>Piqs: <%= piqs.length %></span></p>
-        </div>
+        </div><!-- /.piqContainer -->
+        <div class="modalWrap hidden">
 
-        <div class="modalWrap">
-          <div class="formModal">
-
-            <form class="hidden" action="/login" method="post">
+          <div class="formModal hidden" id="loginModal">
+            <form action="/login" method="post">
               <h2>Login</h2>
               <input type="text" name="username" placeholder="Username">
               <input type="password" name="password" placeholder="Password">
               <input type="submit" value="Login">
             </form><!-- /Login Form -->
+          </div><!-- /#loginModal -->
 
-            <form class="hidden" name="register_form" onsubmit="return checkForm(this);" action="/register" method="post">
+          <div class="formModal hidden" id="registerModal">
+            <form name="register_form" onsubmit="return checkForm(this);" action="/register" method="post">
               <h2>Register</h2>
               <input type="text" name="username" placeholder="Username">
               <input type="text" name="email" placeholder="Email">
@@ -132,8 +153,10 @@
               <input type="password" name="password_hash" placeholder="Confirm Password">
               <input type="submit" name="register" value="Register">
             </form><!-- /Registration Form -->
+          </div><!-- /#registerModal -->
 
-            <form class="hidden" name="reset_password_form" action="/reset" method="put">
+          <div class="formModal hidden" id="resetModal">
+            <form name="reset_password_form" action="/reset" method="put">
               <!-- <h2>Reset Password</h2> -->
               <input type="text" name="username" placeholder="Username">
               <input type="text" name="oldPassword" placeholder="Old Password">
@@ -141,8 +164,10 @@
               <input type="password" name="newPasswordAgain" placeholder="Confirm New Password">
               <input type="submit" name="reset" value="Reset Password">
             </form><!-- /Reset Password Form -->
+          </div><!-- /#resetModal -->
 
-            <form class="hidden" name="update_form" onsubmit="return checkForm(this);" action="/update" method="put">
+          <div class="formModal hidden" id="updateModal">
+            <form name="update_form" onsubmit="return checkForm(this);" action="/update" method="put">
               <!-- <h2>Update Account</h2> -->
               <input type="text" name="username" placeholder="Username">
               <input type="text" name="email" placeholder="Email">
@@ -151,15 +176,17 @@
               <input type="password" name="passwordAgain" placeholder="Confirm Password">
               <input type="submit" name="update" value="Update">
             </form><!-- /Update Form -->
+          </div><!-- /#updateModal -->
 
+          <div class="formModal hidden" id="addPiqModal">
             <form class="piq_form" action="/add_piq" method="post">
               <!-- <h2>Submit a Piq</h2> -->
               <input type="color" name="color" value="#FFFFFF">
               <input type="submit" name="add" value="Add">
             </form><!-- /Piq Form -->
-          </div><!-- /.formModal -->
+          </div><!-- /#piqSubmitModal -->
 
-          <div id="aboutModal" class="hidden">
+          <div class="hidden" id="aboutModal">
             <div id="aboutContainer">
               <h2>about:</h2>
               <p>pi·quan·cy (noun):</p>
@@ -174,8 +201,109 @@
     </div><!-- /.mainContainer -->
 
     <footer>
-      <p><a href="/about">About</a></p>
+      <p><a id="aboutLink">About</a></p>
     </footer>
+
+<!-- Scripts
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <script type="text/javascript">
+
+      //Finds the active modal and hides it
+      function hideActive() {
+        $(".active").addClass("hidden");
+        $(".active").removeClass("active");
+      };
+
+      function checkModalWrap() {
+        return $(".modalWrap").hasClass("hidden");
+      }
+
+      //Show modalWrap
+      function showModalWrap() {
+        if (checkModalWrap()) {
+          $(".modalWrap").removeClass("hidden");
+        }
+      };
+
+      //Hide modalWrap
+      function hideModalWrap() {
+        if (!checkModalWrap()) {
+          // alert('does not have Hidden Class');
+          $(".modalWrap").addClass("hidden");
+        }
+        else if (checkModalWrap()) {
+          // alert('has Hidden Class');
+        }
+      };
+
+      //Event listener for AboutLink
+      $("#aboutLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the about modal
+        $("#aboutModal").addClass("active");
+      });
+
+      //Event listener for loginLink
+      $("#loginLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the login modal
+        $("#loginModal").addClass("active");
+      });
+
+      //Event listener for registerLink
+      $("#regLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the register modal
+        $("#registerModal").removeClass("hidden");
+        $("#registerModal").addClass("active");
+      });
+
+      //Event listener for addPiqLink
+      $("#addPiqLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the add piq modal
+        $("#addPiqModal").removeClass("hidden");
+        $("#addPiqModal").addClass("active");
+      });
+
+      //Event listener for resetLink
+      $("#resetLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the reset modal
+        $("#resetModal").removeClass("hidden");
+        $("#resetModal").addClass("active");
+      });
+
+      //Event listener for updateLink
+      $("#updateLink").on('click', function() {
+        hideActive();
+        showModalWrap();
+
+        //Show the update modal
+        $("#updateModal").removeClass("hidden");
+        $("#updateModal").addClass("active");
+      });
+
+
+      //TEMPORARY HIDE MODALS TESTER:
+      //Event listener for logoutLink
+      $("#logoutLink").on('click', function() {
+        hideActive();
+        hideModalWrap();
+      });
+
+    </script>
 
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -42,16 +42,9 @@ var userlist = [];
 	//////////* GET SINGLE PAGE *//////////
 	router.get('/single-page', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
-			mongoose.model('users').find(function(err, users) {
-				setNav(req);
+			setNav(req);
 
-				userlist = [];
-				for (i = 0; i < users.length; i++) {
-					userlist.push(users[i].username);
-				}
-
-			  res.render('single-page', { piqs: piqs, users: userlist, navItems: navObj });
-			});
+		  res.render('single-page', { piqs: piqs, navItems: navObj });
 		});
 	});
 
