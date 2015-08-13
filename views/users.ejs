@@ -1,4 +1,53 @@
-<%- include('header') -%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+<!-- Basic Page Needs
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta charset="utf-8">
+  <title>PiqMapper</title>
+	<meta name="description" content="Social-emotion tracking, with colors">
+	<meta name="author" content="James Rutledge">
+
+<!-- Mobile Specific Metas
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- FONT
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href='//fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+
+<!-- CSS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+
+		.mainContainer {
+			height: 150em;
+		}
+
+    </style>
+
+<!-- SCRIPTS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  </head>
+  <body>
+  	
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <header>
+      <a href="/">
+        <img id="logo" src="/images/piq-mapper-logo.png">
+        <h1 id="title">PiqMapper</h1>
+      </a>
+      <p id="brand">Social-emotion tracking, with colors ~</p>
+        <nav>|
+          <% for (i = 0; i < navItems.length; i++) { %>
+            <a href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
+          <% }; %>
+        </nav>
 	</header>
 
 	<div class="mainContainer">
@@ -10,9 +59,7 @@
 	    </ul>
 	  </p>
 	</div>
-	<footer>
-	  <p><a href="/about">About</a></p>
-	</footer>
+	<footer></footer>
 
 <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -28,7 +28,8 @@ var userlist = [];
 	// // Checks if current session has userId and passes one of the two Nav Objects
 	function setNav(req) {
 		if (req.session.userId) {
-			return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
+			// return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
+			return navObj = [{ref: "add_piq"}, {ref: 'reset'}, {ref: 'update'}, {ref: 'logout'}];
 		}
 		else {
 			return navObj = [{ref: "login"}, {ref: 'register'}];
@@ -39,22 +40,38 @@ var userlist = [];
 //____PAGE ROUTES________________________________________________//
 
 
+	//////////* GET HOME PAGE *//////////
+	router.get('/', function(req, res, next) {
+		mongoose.model('piqs').find(function(err, piqs) {
+			setNav(req);
+			// isLoggedIn(req, res);
+
+		  res.render('index', { piqs: piqs, navItems: navObj });
+		});
+	});
+
+	//////////* GET USERS PAGE *//////////
+	router.get('/users', function(req, res, next) {
+		mongoose.model('users').find(function(err, users) {
+			setNav(req);
+			isNotLoggedIn(req, res);
+
+			userlist = [];
+			for (i = 0; i < users.length; i++) {
+				userlist.push(users[i].username);
+			}
+		    res.render('users', { users: userlist, navItems: navObj });
+		});
+	});
+
+
+
 	//////////* GET OLD INDEX *//////////
 	router.get('/old-index', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
 			setNav(req);
 
 		  res.render('old-index', { piqs: piqs, navItems: navObj });
-		});
-	});
-
-
-	//////////* GET HOME PAGE *//////////
-	router.get('/', function(req, res, next) {
-		mongoose.model('piqs').find(function(err, piqs) {
-			setNav(req);
-
-		  res.render('index', { piqs: piqs, navItems: navObj });
 		});
 	});
 
@@ -82,19 +99,37 @@ var userlist = [];
 	  res.render('_login_form', { navItems: navObj });
 	});
 
-	//////////* GET USERS PAGE *//////////
-	router.get('/users', function(req, res, next) {
-		mongoose.model('users').find(function(err, users) {
-			setNav(req);
-			isNotLoggedIn(req, res);
+	//////////* GET PIQ SUBMISSION FORM *//////////
+	router.get('/add_piq', function(req, res, next) {
+		setNav(req);
+		isNotLoggedIn(req, res);
 
-			userlist = [];
-			for (i = 0; i < users.length; i++) {
-				userlist.push(users[i].username);
-			}
-		    res.render('users', { users: userlist, navItems: navObj });
-		});
+		res.render('_piq_form', { navItems: navObj });
 	});
+
+	//////////* GET USER UPDATE FORM *//////////
+	router.get('/user/:username/update', function(req, res, next) {
+		// Get user data from session id
+		setNav(req);
+		isNotLoggedIn(req, res);
+
+		// Send off proper data to the form in the ejs file
+		res.render('_update_form', { navItems: navObj });
+	});
+
+	//////////* GET PASSWORD RESET FORM *//////////
+	router.get('/reset', function(req, res, next) {
+		setNav(req);
+		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
+
+		res.render('_reset_password_form', { navItems: navObj });
+	});	
+
+
+
+
+
+
 
 	//////////* GET USER ACCOUNT *//////////
 	router.get('/user/:username', function(req, res) {
@@ -118,14 +153,6 @@ var userlist = [];
 
 		  res.render('piqs', { piqs: piqs, navItems: navObj });
 		});
-	});
-
-	//////////* GET PIQ SUBMISSION FORM *//////////
-	router.get('/add_piq', function(req, res, next) {
-		setNav(req);
-		isNotLoggedIn(req, res);
-
-		res.render('_piq_form', { navItems: navObj });
 	});
 
 	//////////* GET PIQ PAGE *//////////
@@ -167,24 +194,6 @@ var userlist = [];
 		isNotLoggedIn(req, res);
 
 		res.redirect('/user/jmz527', { navItems: navObj }); // <-- TODO: Redirect to Users Profile Page
-	});
-
-	//////////* GET USER UPDATE FORM *//////////
-	router.get('/user/:username/update', function(req, res, next) {
-		// Get user data from session id
-		setNav(req);
-		isNotLoggedIn(req, res);
-
-		// Send off proper data to the form in the ejs file
-		res.render('_update_form', { navItems: navObj });
-	});
-
-	//////////* GET PASSWORD RESET FORM *//////////
-	router.get('/reset', function(req, res, next) {
-		setNav(req);
-		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
-
-		res.render('_reset_password_form', { navItems: navObj });
 	});
 
 	//////////* GET USER STAT PAGE *//////////

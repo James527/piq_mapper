@@ -39,26 +39,14 @@
         <h1 id="title">PiqMapper</h1>
       </a>
       <p id="brand">Social-emotion tracking, with colors ~</p>
-
-        <aside class="navContainer">|
+        <nav>|
             <a id="loginLink">login</a>|
-            <a id="regLink">register</a>|          
-            <a id="addPiqLink">add_piq</a>|
+            <a id="registerLink">register</a>|          
+            <a id="add_piqLink">add_piq</a>|
             <a id="resetLink">reset password</a>|
             <a id="updateLink">update account</a>|
             <a id="logoutLink">logout</a>|
-        </aside>
-
-<!--         <aside class="navContainer hidden" id="basicNav">|
-            <a id="loginLink">login</a>|
-            <a id="regLink">register</a>|
-        </aside>
-        <aside class="navContainer hidden" id="userNav">|
-            <a id="addPiqLink">add_piq</a>|
-            <a id="resetLink">reset password</a>|
-            <a id="updateLink">update account</a>|
-            <a id="logoutLink">logout</a>|
-        </aside> -->
+        </nav>
 
         <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
     </header>
@@ -69,15 +57,11 @@
       <div class="mainWrap">
 
         <div class="piqContainer">
-          <% for (i = 0; i < piqs.length; i++) { %>
-            <a class="plink" href="/piq/<%= piqs[i]._id %>">
-              <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
-            </a>
-          <% } %>
-          <p class="piqTail"><span>Piqs: <%= piqs.length %></span></p>
-        </div><!-- /.piqContainer -->
-        <div class="modalWrap hidden">
 
+          <p class="piqTail"><span>Piqs: <%= piqs.length %></span> | <a id="ajaxLink" href=".">AJAX GET PIQS</a></p>
+        </div><!-- /.piqContainer -->
+
+        <div class="modalWrap hidden">
           <div class="formModal hidden" id="loginModal">
             <form action="/login" method="post">
               <h2>Login</h2>
@@ -150,6 +134,7 @@
 
 <!-- Scripts
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script type="text/javascript" src="/javascripts/piqscript.js"></script>
     <script type="text/javascript">
 
     </script>

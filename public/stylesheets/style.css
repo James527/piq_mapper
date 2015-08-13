@@ -14,6 +14,10 @@ header {
 	padding: 50px 50px 0px 50px;
 }
 
+nav {
+	float: right;
+}
+
 a {
 	color: #00B7FF;
 	text-decoration: none;
@@ -70,11 +74,7 @@ footer {
 
 }
 
-.navContainer {
-	float: right;
-}
-
-.navContainer a, .piqTail a, .piqTail span {
+nav a, .piqTail a, .piqTail span {
 	margin: 0 1em;
 }
 
@@ -136,6 +136,8 @@ footer {
 
 .piqTail {
 	text-align: right;
+	position: relative;
+	top: 25em;
 }
 
 .hidden{

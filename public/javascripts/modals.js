@@ -48,7 +48,7 @@ $(document).ready(function() {
   });
 
   //Event listener for registerLink
-  $("#regLink").on('click', function() {
+  $("#registerLink").on('click', function() {
     hideActive();
     showModalWrap();
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
   });
 
   //Event listener for addPiqLink
-  $("#addPiqLink").on('click', function() {
+  $("#add_piqLink").on('click', function() {
     hideActive();
     showModalWrap();
 
