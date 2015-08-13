@@ -25,6 +25,7 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/register_check.js"></script>
+    <script type="text/javascript" src="/javascripts/piqscript.js"></script>
     <script type="text/javascript" src="/javascripts/piqs.js"></script>
     <script type="text/javascript" src="/javascripts/modals.js"></script>
 
@@ -39,26 +40,19 @@
         <h1 id="title">PiqMapper</h1>
       </a>
       <p id="brand">Social-emotion tracking, with colors ~</p>
-
-        <aside class="navContainer">|
+        <nav>|
+          <% for (i = 0; i < navItems.length; i++) { %>
+            <a id="<%= navItems[i].ref %>Link" href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
+          <% }; %>
+        </nav>
+<!--         <nav>|
             <a id="loginLink">login</a>|
-            <a id="regLink">register</a>|          
-            <a id="addPiqLink">add_piq</a>|
+            <a id="registerLink">register</a>|          
+            <a id="add_piqLink">add_piq</a>|
             <a id="resetLink">reset password</a>|
             <a id="updateLink">update account</a>|
             <a id="logoutLink">logout</a>|
-        </aside>
-
-<!--         <aside class="navContainer hidden" id="basicNav">|
-            <a id="loginLink">login</a>|
-            <a id="regLink">register</a>|
-        </aside>
-        <aside class="navContainer hidden" id="userNav">|
-            <a id="addPiqLink">add_piq</a>|
-            <a id="resetLink">reset password</a>|
-            <a id="updateLink">update account</a>|
-            <a id="logoutLink">logout</a>|
-        </aside> -->
+        </nav> -->
 
         <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
     </header>
@@ -68,16 +62,11 @@
     <div class="mainContainer">
       <div class="mainWrap">
 
-        <div class="piqContainer">
-          <% for (i = 0; i < piqs.length; i++) { %>
-            <a class="plink" href="/piq/<%= piqs[i]._id %>">
-              <div class="piq" style="background-color: <%= piqs[i].color %> ;"></div>
-            </a>
-          <% } %>
-          <p class="piqTail"><span>Piqs: <%= piqs.length %></span></p>
-        </div><!-- /.piqContainer -->
-        <div class="modalWrap hidden">
+        <div class="piqWrapper">
+          <div class="piqContainer"></div>
+        </div><!-- /.piqWrapper -->
 
+        <div class="modalWrap hidden">
           <div class="formModal hidden" id="loginModal">
             <form action="/login" method="post">
               <h2>Login</h2>
@@ -130,6 +119,36 @@
             </form><!-- /Piq Form -->
           </div><!-- /#piqSubmitModal -->
 
+          <div class="hidden" id="profileModal">
+            <div id="profileContainer">
+              <p>User Profile:
+                <ul>
+                  <li id="username">user.username</li>
+                  <!-- <li id="name">user.name</li> -->
+                  <li id="email">user.email</li>
+                </ul>
+              </p>
+            </div>
+            <div id="myPiqsContainer">
+              <div id="myPiqsWrapper">
+                <p>My Piquancy:</p>
+              </div>
+              <!-- <p class="piqTail"><a id="myPiquancy" href=".">AJAX PIQUANCY</a></p> -->
+            </div>
+          </div><!-- /#profileModal -->
+
+<!--           <div class="hidden" id="piqModal">
+            <div id="piqContainer">
+              <p>Piq:
+                <div id="singlePiq"></div>
+                <div class="piq" style="background-color: white ;"></div>
+              </p>
+              <p>Piq ID:<span id="piqID"></span></p>
+              <p>User:<span id="piqUser"></span></p>
+              <p>Created:<span id="piqCreated"></span></p>
+            </div>
+          </div> -->
+
           <div class="hidden" id="aboutModal">
             <div id="aboutContainer">
               <h2>about:</h2>
@@ -145,7 +164,15 @@
     </div><!-- /.mainContainer -->
 
     <footer>
-      <p><a id="aboutLink">About</a></p>
+      <nav>|
+          <a id="piqLink" href="/ajax/piq">piq</a>|
+          <a id="aboutLink" href="/about">About</a>|
+          <a id="profileLink" href="/profile">Profile</a>|
+          <a id="add_piqLink">add_piq</a>|
+          <a id="resetLink">reset password</a>|
+          <a id="updateLink">update account</a>|
+          <a id="logoutLink">clear</a>|
+      </nav>
     </footer>
 
 <!-- Scripts

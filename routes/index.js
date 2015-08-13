@@ -28,7 +28,8 @@ var userlist = [];
 	// // Checks if current session has userId and passes one of the two Nav Objects
 	function setNav(req) {
 		if (req.session.userId) {
-			return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
+			// return navObj = [{ref: "add_piq"}, {ref: 'users'}, {ref: 'piqs'}, {ref: 'logout'}];
+			return navObj = [{ref: "add_piq"}, {ref: 'reset'}, {ref: 'update'}, {ref: 'logout'}];
 		}
 		else {
 			return navObj = [{ref: "login"}, {ref: 'register'}];
@@ -38,6 +39,33 @@ var userlist = [];
 
 //____PAGE ROUTES________________________________________________//
 
+	//////////* GET HOME PAGE *//////////
+	router.get('/', function(req, res, next) {
+		mongoose.model('piqs').find(function(err, piqs) {
+			mongoose.model('users').find(function(err, users) {
+				setNav(req);
+				// isLoggedIn(req, res);
+
+			  res.render('index', { piqs: piqs, navItems: navObj });
+			});
+		});
+	});
+
+	//////////* GET USERS PAGE *//////////
+	router.get('/users', function(req, res, next) {
+		mongoose.model('users').find(function(err, users) {
+			setNav(req);
+			isNotLoggedIn(req, res);
+
+			userlist = [];
+			for (i = 0; i < users.length; i++) {
+				userlist.push(users[i].username);
+			}
+		    res.render('users', { users: userlist, navItems: navObj });
+		});
+	});
+
+
 
 	//////////* GET OLD INDEX *//////////
 	router.get('/old-index', function(req, res, next) {
@@ -45,16 +73,6 @@ var userlist = [];
 			setNav(req);
 
 		  res.render('old-index', { piqs: piqs, navItems: navObj });
-		});
-	});
-
-
-	//////////* GET HOME PAGE *//////////
-	router.get('/', function(req, res, next) {
-		mongoose.model('piqs').find(function(err, piqs) {
-			setNav(req);
-
-		  res.render('index', { piqs: piqs, navItems: navObj });
 		});
 	});
 
@@ -82,19 +100,34 @@ var userlist = [];
 	  res.render('_login_form', { navItems: navObj });
 	});
 
-	//////////* GET USERS PAGE *//////////
-	router.get('/users', function(req, res, next) {
-		mongoose.model('users').find(function(err, users) {
-			setNav(req);
-			isNotLoggedIn(req, res);
+	//////////* GET PIQ SUBMISSION FORM *//////////
+	router.get('/add_piq', function(req, res, next) {
+		setNav(req);
+		isNotLoggedIn(req, res);
 
-			userlist = [];
-			for (i = 0; i < users.length; i++) {
-				userlist.push(users[i].username);
-			}
-		    res.render('users', { users: userlist, navItems: navObj });
-		});
+		res.render('_piq_form', { navItems: navObj });
 	});
+
+	//////////* GET USER UPDATE FORM *//////////
+	router.get('/user/:username/update', function(req, res, next) {
+		// Get user data from session id
+		setNav(req);
+		isNotLoggedIn(req, res);
+
+		// Send off proper data to the form in the ejs file
+		res.render('_update_form', { navItems: navObj });
+	});
+
+	//////////* GET PASSWORD RESET FORM *//////////
+	router.get('/reset', function(req, res, next) {
+		setNav(req);
+		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
+
+		res.render('_reset_password_form', { navItems: navObj });
+	});	
+
+
+
 
 	//////////* GET USER ACCOUNT *//////////
 	router.get('/user/:username', function(req, res) {
@@ -120,14 +153,6 @@ var userlist = [];
 		});
 	});
 
-	//////////* GET PIQ SUBMISSION FORM *//////////
-	router.get('/add_piq', function(req, res, next) {
-		setNav(req);
-		isNotLoggedIn(req, res);
-
-		res.render('_piq_form', { navItems: navObj });
-	});
-
 	//////////* GET PIQ PAGE *//////////
 	router.get('/piq/:piq_id', function(req, res, next) {
 		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
@@ -135,7 +160,7 @@ var userlist = [];
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			// console.log(piqs);
+			console.log(piqs);
 			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
@@ -167,24 +192,6 @@ var userlist = [];
 		isNotLoggedIn(req, res);
 
 		res.redirect('/user/jmz527', { navItems: navObj }); // <-- TODO: Redirect to Users Profile Page
-	});
-
-	//////////* GET USER UPDATE FORM *//////////
-	router.get('/user/:username/update', function(req, res, next) {
-		// Get user data from session id
-		setNav(req);
-		isNotLoggedIn(req, res);
-
-		// Send off proper data to the form in the ejs file
-		res.render('_update_form', { navItems: navObj });
-	});
-
-	//////////* GET PASSWORD RESET FORM *//////////
-	router.get('/reset', function(req, res, next) {
-		setNav(req);
-		isNotLoggedIn(req, res); // <-- MAYBE TAKE THIS OUT LATER...
-
-		res.render('_reset_password_form', { navItems: navObj });
 	});
 
 	//////////* GET USER STAT PAGE *//////////
@@ -361,14 +368,58 @@ var userlist = [];
 
 			res.send(myPiqs);
 		});
-		// This may come in handy later
-		// mongoose.model('users').find({_id: req.params.username}, function(err, users) {
-		// 	mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
-		// 		myPiqs = piqs;
+	});
 
-		// 		res.send(myPiqs);
-		// 	});
-		// });
+
+	//////////* GET PIQ PAGE *//////////
+	router.get('/piq/:piq_id', function(req, res, next) {
+		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
+			// Set up another callback to get the piq's user data
+			setNav(req);
+			isNotLoggedIn(req, res);
+
+			console.log(piqs);
+			res.render('piq', { piq: piqs, navItems: navObj });
+		});
+	});
+
+	// //////////* AJAX GET SINGLE PIQ  *//////////
+	// router.get('/ajax/piq', function(req, res) {
+	// 	// console.log(req.params.piq_id);
+	// 	// piqID = req.params.piq_id;
+	// 	piqID = "559a38661a7a3edae74a9b23";
+	// 	console.log(piqID);
+
+	// 	mongoose.model('piqs').find({_id: piqID}, function(err, piqs) {
+	// 	// mongoose.model('piqs').find({_id: piqID}, function(err, piqs) {
+	// 	// mongoose.model('piqs').find({_id: ObjectId(req.params.piq_id) }, function(err, piqs) {
+	// 		thisPiq = piqs[0];
+
+	// 		// console.log(req.params);
+	// 		// console.log(req.params.piq_id);
+	// 		console.log(thisPiq);
+	// 		// console.log(piqs);
+
+	// 		res.send({ piq: piqs });
+	// 	});
+	// });
+
+
+	//////////* AJAX GET USER PROFILE  *//////////
+	router.get('/ajax/profile', function(req, res) {
+		mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
+			profileID = users[0]._id;
+
+			mongoose.model('piqs').find({u_id: profileID}, function(err, piqs) {
+				thisUser = users[0];
+				myPiqs = piqs;
+
+				console.log(thisUser);
+				console.log(myPiqs);
+
+				res.send({ user: thisUser, piqs: myPiqs });
+			});
+		});
 	});
 
 
