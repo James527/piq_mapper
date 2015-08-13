@@ -39,51 +39,6 @@ $(document).ready(function() {
     $("#aboutModal").addClass("active");
   });
 
-  //Event listener for ProfileLink
-  $("#profileLink").on('click', function(event) {
-    event.preventDefault();
-    hideActive();
-    showModalWrap();
-
-    // AJAX accessing profile
-    $.ajax({
-      url: "/ajax/profile",
-      method: "GET",
-      dataType: "json",
-      timeout: 5000,
-      success: function(data, textStatus, jqXHR) {
-        var ajaxData = data;
-
-        console.log(ajaxData);
-
-        // Clears the profile
-        $("#username").html('');
-        // $("#user").html('');
-        $("#email").html('');
-
-        // Fills the profile with the user data
-        $("#username").append(ajaxData.user.username);
-        // $("#user").html("Don't ever use 'name' for a database column!");
-        $("#email").html(ajaxData.user.email);
-
-        // Iterating loop for the returned piqs data array
-        for (i=0; i<ajaxData.piqs.length; i++) {
-          // Creates an html element for each piq
-          $("#myPiqsWrapper").append("<a class='plink' href='/piq/" + ajaxData.piqs[i]._id + "'><div class='piq' style='background-color: " + ajaxData.piqs[i].color + "'></div></a>");
-        }
-      },
-      error: function() {
-        console.log('Error!');
-      },
-      complete: function() {
-        // console.log('FIN');
-      }
-    });
-
-    //Show the profile modal
-    $("#profileModal").addClass("active");
-  });
-
 
   //Event listener for loginLink
   $("#loginLink").on('click', function(event) {
@@ -138,6 +93,90 @@ $(document).ready(function() {
     $("#updateModal").removeClass("hidden");
     $("#updateModal").addClass("active");
   });
+
+
+  // //Event listener for PiqLink
+  // $("#piqLink").on('click', function(event) {
+  //   event.preventDefault();
+  //   hideActive();
+  //   showModalWrap();
+
+  //   // AJAX call for single piq
+  //   $.ajax({
+  //     url: "/ajax/piq",
+  //     method: "GET",
+  //     dataType: "json",
+  //     timeout: 5000,
+  //     success: function(data, textStatus, jqXHR) {
+  //       var ajaxData = data;
+
+  //       console.log(ajaxData);
+
+  //       // Clears the piq modal
+  //       $("#singlePiq").html('');
+
+  //       // Fills the piq modal with the piq data
+  //       // $("#singlePiq").append("<div class='piq' style='background-color: " + ajaxData.piq[0].color + "'></div>");
+  //       $("#singlePiq").append("<div class='piq' style='background-color: purple'></div>");
+  //     },
+  //     error: function() {
+  //       console.log('Error!');
+  //     },
+  //     complete: function() {
+  //       // console.log('FIN');
+  //     }
+  //   });
+
+  //   //Show the profile modal
+  //   $("#piqModal").addClass("active");
+  // });
+
+
+  //Event listener for ProfileLink
+  $("#profileLink").on('click', function(event) {
+    event.preventDefault();
+    hideActive();
+    showModalWrap();
+
+    // AJAX accessing profile
+    $.ajax({
+      url: "/ajax/profile",
+      method: "GET",
+      dataType: "json",
+      timeout: 5000,
+      success: function(data, textStatus, jqXHR) {
+        var ajaxData = data;
+
+        console.log(ajaxData);
+
+        // Clears the profile
+        $("#username").html('');
+        // $("#user").html('');
+        $("#email").html('');
+
+        // Fills the profile with the user data
+        $("#username").append(ajaxData.user.username);
+        // $("#user").html("Don't ever use 'name' for a database column!");
+        $("#email").html(ajaxData.user.email);
+
+        // Iterating loop for the returned piqs data array
+        for (i=0; i<ajaxData.piqs.length; i++) {
+          // Creates an html element for each piq
+          $("#myPiqsWrapper").append("<a class='plink' href='/piq/" + ajaxData.piqs[i]._id + "'><div class='piq' style='background-color: " + ajaxData.piqs[i].color + "'></div></a>");
+        }
+      },
+      error: function() {
+        console.log('Error!');
+      },
+      complete: function() {
+        // console.log('FIN');
+      }
+    });
+
+    //Show the profile modal
+    $("#profileModal").addClass("active");
+  });
+
 
   //TEMPORARY HIDE MODALS TESTER:
   //Event listener for logoutLink

@@ -16,31 +16,7 @@
             <p class="piqTail"><span>Piqs: <%= piqs.length %></span> | <a id="ajaxLink" href=".">AJAX GET PIQS</a></p>
 
 
-<!-- Profile -->
-
-  <div class="mainContainer">
-    <p>User Profile:
-      <ul>
-        <li><%= user.username %></li>
-        <li><%= user.name %></li>
-        <li><%= user.email %></li>
-      </ul>
-    </p>
-    <div class="piqContainer"></div>
-    <p class="piqTail"><a id="myPiquancy" href=".">AJAX PIQUANCY</a></p>
-  </div>
-
-<!-- MyPiqs/Piqs/Piq -->
-
-  <div class="mainContainer">
-      <div class="piqContainer">
-        <% for (i = 0; i < mypiqs.length; i++) { %>
-          <a class="plink" href="/piq/<%= mypiqs[i]._id %>">
-            <div class="piq" style="background-color: <%= mypiqs[i].color %> ;"></div>
-          </a>
-        <% } %>
-      </div>
-  </div>
+<!-- Piqs/Piq -->
 
   <div class="mainContainer">
       <div class="piqContainer">
@@ -58,3 +34,7 @@
         <div class="piq" style="background-color: <%= piq[0].color %> ;"></div>
       </p>
   </div>
+
+<a id="piqLink" href="/piq/<%= mypiqs[i]._id %>">piq</a>|
+<a id="piqLink" href="/ajax/559a38661a7a3edae74a9b23">piq</a>|
+

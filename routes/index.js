@@ -39,7 +39,6 @@ var userlist = [];
 
 //____PAGE ROUTES________________________________________________//
 
-
 	//////////* GET HOME PAGE *//////////
 	router.get('/', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
@@ -130,9 +129,6 @@ var userlist = [];
 
 
 
-
-
-
 	//////////* GET USER ACCOUNT *//////////
 	router.get('/user/:username', function(req, res) {
 		mongoose.model('users').find({username: req.params.username}, function(err, users) {
@@ -164,7 +160,7 @@ var userlist = [];
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			// console.log(piqs);
+			console.log(piqs);
 			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
@@ -372,15 +368,42 @@ var userlist = [];
 
 			res.send(myPiqs);
 		});
-		// This may come in handy later
-		// mongoose.model('users').find({_id: req.params.username}, function(err, users) {
-		// 	mongoose.model('piqs').find({user: users[0]._id}, function(err, piqs) {
-		// 		myPiqs = piqs;
-
-		// 		res.send(myPiqs);
-		// 	});
-		// });
 	});
+
+
+	//////////* GET PIQ PAGE *//////////
+	router.get('/piq/:piq_id', function(req, res, next) {
+		mongoose.model('piqs').find({_id: req.params.piq_id}, function(err, piqs) {
+			// Set up another callback to get the piq's user data
+			setNav(req);
+			isNotLoggedIn(req, res);
+
+			console.log(piqs);
+			res.render('piq', { piq: piqs, navItems: navObj });
+		});
+	});
+
+	// //////////* AJAX GET SINGLE PIQ  *//////////
+	// router.get('/ajax/piq', function(req, res) {
+	// 	// console.log(req.params.piq_id);
+	// 	// piqID = req.params.piq_id;
+	// 	piqID = "559a38661a7a3edae74a9b23";
+	// 	console.log(piqID);
+
+	// 	mongoose.model('piqs').find({_id: piqID}, function(err, piqs) {
+	// 	// mongoose.model('piqs').find({_id: piqID}, function(err, piqs) {
+	// 	// mongoose.model('piqs').find({_id: ObjectId(req.params.piq_id) }, function(err, piqs) {
+	// 		thisPiq = piqs[0];
+
+	// 		// console.log(req.params);
+	// 		// console.log(req.params.piq_id);
+	// 		console.log(thisPiq);
+	// 		// console.log(piqs);
+
+	// 		res.send({ piq: piqs });
+	// 	});
+	// });
+
 
 	//////////* AJAX GET USER PROFILE  *//////////
 	router.get('/ajax/profile', function(req, res) {
@@ -397,7 +420,6 @@ var userlist = [];
 				res.send({ user: thisUser, piqs: myPiqs });
 			});
 		});
-
 	});
 
 
