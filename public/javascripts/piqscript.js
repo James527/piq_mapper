@@ -11,7 +11,7 @@ $(document).ready(function() {
 			// Clears the container
 			$(".piqContainer").html('');
 			// Iterating loop for the returned piqs data array
-			for (i=0; i<piqs.length; i++) {
+			for (i=0; i<315; i++) {
 				// Creates an html element for each piq
 				$(".piqContainer").append("<a class='plink' href='/piq/" + piqs[i]._id + "'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
 			}
@@ -41,7 +41,7 @@ $(document).ready(function() {
 					j = 0;
 				}
 				// Iterating loop for the returned piqs data array
-				for (i=j; i<piqs.length; i++) {
+				for (i=j; i<315+j; i++) {
 					// Creates an html element for each piq
 					$(".piqContainer").append("<a class='plink' href='/piq/" + piqs[i]._id + "'><div class='piq' style='background-color: " + piqs[i].color + "'></div></a>");
 
