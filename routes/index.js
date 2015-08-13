@@ -39,12 +39,12 @@ var userlist = [];
 //____PAGE ROUTES________________________________________________//
 
 
-	//////////* GET SINGLE PAGE *//////////
-	router.get('/single-page', function(req, res, next) {
+	//////////* GET OLD INDEX *//////////
+	router.get('/old-index', function(req, res, next) {
 		mongoose.model('piqs').find(function(err, piqs) {
 			setNav(req);
 
-		  res.render('single-page', { piqs: piqs, navItems: navObj });
+		  res.render('old-index', { piqs: piqs, navItems: navObj });
 		});
 	});
 
