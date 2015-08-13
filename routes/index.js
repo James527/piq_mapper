@@ -13,14 +13,14 @@ var userlist = [];
 	// Check for the session userId
 	function isNotLoggedIn(req, res) {
 		if (req.session.userId == undefined || req.session.userId == null) {
-			console.log('You have no session. Log In!');
+			// console.log('You have no session. Log In!');
 			return res.redirect('/');
 		}
 	};
 
 	function isLoggedIn(req, res) {
 		if (req.session.userId) {
-			console.log('You are logged in!');
+			// console.log('You are logged in!');
 			return res.redirect('/users');
 		}
 	};
@@ -88,7 +88,7 @@ var userlist = [];
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			console.log(piqs);
+			// console.log(piqs);
 			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
@@ -175,7 +175,7 @@ var userlist = [];
 				res.redirect('/users'); // <-- TODO: Redirect to Profile
 			}
 			else {
-				alert('Something went wrong...');
+				// console.log('Something went wrong...');
 			}
 		});
 	});
@@ -270,7 +270,7 @@ var userlist = [];
 		mongoose.model('piqs').find({u_id: req.session.userId}, function(err, piqs) {
 			myPiqs = piqs;
 
-			console.log(req);
+			// console.log(req);
 
 			res.send(myPiqs);
 		});
@@ -284,7 +284,7 @@ var userlist = [];
 			setNav(req);
 			isNotLoggedIn(req, res);
 
-			console.log(piqs);
+			// console.log(piqs);
 			res.render('piq', { piq: piqs, navItems: navObj });
 		});
 	});
@@ -299,8 +299,8 @@ var userlist = [];
 				thisUser = users[0];
 				myPiqs = piqs;
 
-				console.log(thisUser);
-				console.log(myPiqs);
+				// console.log(thisUser);
+				// console.log(myPiqs);
 
 				res.send({ user: thisUser, piqs: myPiqs });
 			});
