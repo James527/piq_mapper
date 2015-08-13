@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var usersSchema = mongoose.Schema({
 	username: String,
 	password_hash: String,
-	name: String,
+	full_name: String,
 	email: String
 });
 usersSchema.plugin(timestamps);
