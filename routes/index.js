@@ -292,6 +292,9 @@ var userlist = [];
 
 	//////////* AJAX GET USER PROFILE  *//////////
 	router.get('/ajax/profile', function(req, res) {
+		if (req.session.userId == undefined) {
+			return res.redirect('/');
+		}
 		mongoose.model('users').find({_id: req.session.userId}, function(err, users) {
 			profileID = users[0]._id;
 
