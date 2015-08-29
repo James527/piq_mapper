@@ -113,10 +113,14 @@
           <div class="hidden" id="profileModal">
             <div id="profileContainer">
               <p>User Profile:
+                  <% var user = {} %>
+                  <% user.username = "taco1" %>
+                  <% user.full_name = "taco2" %>
+                  <% user.email = "taco3" %>  
                 <ul>
-                  <li id="username">user.username</li>
-                  <li id="full_name">user.full_name</li>
-                  <li id="email">user.email</li>
+                  <li id="username"><%= user.username %></li>
+                  <li id="fullname"><%= user.full_name %></li>
+                  <li id="email"><%= user.email %></li>
                 </ul>
               </p>
             </div>
