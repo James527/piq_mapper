@@ -1,2 +1,6 @@
 /node_modules
 .env
+piqs-seed.json
+piqs-seed2.json
+piqs-seed3.json
+users-seed.json
