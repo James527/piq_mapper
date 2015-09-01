@@ -47,10 +47,7 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 - 
 
 # TODO:
-- Passport Module
-	* Facebook login
-	* Twitter login
-	* Google login
+-
 
 ### TODO extras: ###
 - Serve public JS files through routes
@@ -63,3 +60,7 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 	* Make friend routes
 	* Make friends view?
 	* Set friend permissions
+
+
+# Thanks
+- scotch.io
