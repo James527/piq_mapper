@@ -1,169 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-
-<!-- Basic Page Needs
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<meta charset="utf-8">
-  <title>PiqMapper</title>
-	<meta name="description" content="Social-emotion tracking, with colors">
-	<meta name="author" content="James Rutledge">
-
-<!-- Mobile Specific Metas
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- FONT
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<link href='//fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
-
-<!-- CSS
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-
-<!-- SCRIPTS
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/register_check.js"></script>
-    <script type="text/javascript" src="/javascripts/piqscript.js"></script>
-    <script type="text/javascript" src="/javascripts/piqs.js"></script>
-    <script type="text/javascript" src="/javascripts/modals.js"></script>
-
-  </head>
-  <body>
-  	
-<!-- Primary Page Layout
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <header>
-      <a href="/">
-        <img id="logo" src="/images/piq-mapper-logo.png">
-        <h1 id="title">PiqMapper</h1>
-      </a>
-      <p id="brand">Social-emotion tracking, with colors ~</p>
-        <nav>|
-          <% for (i = 0; i < navItems.length; i++) { %>
-            <a id="<%= navItems[i].ref %>Link" href="/<%= navItems[i].ref %>"><%= navItems[i].ref %></a>|
-          <% }; %>
-        </nav>
-        <!-- PRETTY SURE I NEED TO INCLUDE ERROR MESSAGES HERE -->
-    </header>
-
-<!-- Main -->
-
-    <div class="mainContainer">
-      <div class="mainWrap">
-
-        <div class="piqWrapper">
-          <div class="piqContainer"></div>
-        </div><!-- /.piqWrapper -->
-
-        <div class="modalWrap hidden">
-          <div class="formModal hidden" id="loginModal">
-            <form action="/login" method="post">
-              <h2>Login</h2>
-              <input type="text" name="username" placeholder="Username">
-              <input type="password" name="password" placeholder="Password">
-              <input type="submit" value="Login">
-            </form><!-- /Login Form -->
-          </div><!-- /#loginModal -->
-
-          <div class="formModal hidden" id="registerModal">
-            <form name="register_form" onsubmit="return checkForm(this);" action="/register" method="post">
-              <h2>Register</h2>
-              <input type="text" name="username" placeholder="Username">
-              <input type="text" name="email" placeholder="Email">
-              <input type="text" name="full_name" placeholder="Full Name">
-              <input type="password" name="password" placeholder="Password">
-              <input type="password" name="password_hash" placeholder="Confirm Password">
-              <input type="submit" name="register" value="Register">
-            </form><!-- /Registration Form -->
-          </div><!-- /#registerModal -->
-
-          <div class="formModal hidden" id="resetModal">
-            <form name="reset_password_form" action="/reset" method="put">
-              <!-- <h2>Reset Password</h2> -->
-              <input type="text" name="username" placeholder="Username">
-              <input type="text" name="oldPassword" placeholder="Old Password">
-              <input type="password" name="newPassword" placeholder="New Password">
-              <input type="password" name="newPasswordAgain" placeholder="Confirm New Password">
-              <input type="submit" name="reset" value="Reset Password">
-            </form><!-- /Reset Password Form -->
-          </div><!-- /#resetModal -->
-
-          <div class="formModal hidden" id="updateModal">
-            <form name="update_form" onsubmit="return checkForm(this);" action="/update" method="put">
-              <!-- <h2>Update Account</h2> -->
-              <input type="text" name="username" placeholder="Username">
-              <input type="text" name="email" placeholder="Email">
-              <input type="text" name="full_name" placeholder="Full Name">
-              <input type="password" name="password" placeholder="Password">
-              <input type="password" name="passwordAgain" placeholder="Confirm Password">
-              <input type="submit" name="update" value="Update">
-            </form><!-- /Update Form -->
-          </div><!-- /#updateModal -->
-
-          <div class="formModal hidden" id="addPiqModal">
-            <form class="piq_form" action="/add_piq" method="post">
-              <!-- <h2>Submit a Piq</h2> -->
-              <input type="color" name="color" value="#FFFFFF">
-              <input type="submit" name="add" value="Add">
-            </form><!-- /Piq Form -->
-          </div><!-- /#piqSubmitModal -->
-
-          <div class="hidden" id="profileModal">
-            <div id="profileContainer">
-              <p>User Profile:
-                  <% var user = {} %>
-                  <% user.username = "taco1" %>
-                  <% user.full_name = "taco2" %>
-                  <% user.email = "taco3" %>  
-                <ul>
-                  <li id="username"><%= user.username %></li>
-                  <li id="fullname"><%= user.full_name %></li>
-                  <li id="email"><%= user.email %></li>
-                </ul>
-              </p>
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Node Authentication</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <style>
+            body        { padding-top:80px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+                <p>Login or Register with:</p>
+                <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+                <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+                <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+                <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
+                <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>
             </div>
-            <div id="myPiqsContainer">
-              <div id="myPiqsWrapper">
-                <p>My Piquancy:</p>
-              </div>
-            </div>
-          </div><!-- /#profileModal -->
-
-          <div class="hidden" id="aboutModal">
-            <div id="aboutContainer">
-              <h2>about:</h2>
-              <p>pi·quan·cy (noun):</p>
-              <p>1. a pleasantly sharp and appetizing flavor.</p>
-              <p>2. the quality of being pleasantly stimulating or exciting.</p>
-              <p>PiqMapper is a social platform designed for those color lovers wanting to track their sentiments over time. With PiqMapper users create piquants, or piqs (pronounced like "peeks") - little bubbles of color that represent instances of emotion. Express yourself without words: Was it an aqua-green week? Did you have a very purple year? Log your emotions over time and see what kind of palatte you're working with.</p>
-            </div>
-          </div><!-- /#aboutModal -->
-
-        </div><!-- /.modalWrap -->
-      </div><!-- /.mainWrap -->
-    </div><!-- /.mainContainer -->
-
-    <footer>
-      <nav>|
-          <a id="aboutLink" href="/about">about</a>|
-          <a id="profileLink" href="/profile">profile</a>|
-          <a id="usersLink" href="/users">users</a>|
-<!--           <a id="add_piqLink" href="/add_piq">add_piq</a>|
-          <a id="resetLink" href="/reset">reset password</a>|
-          <a id="updateLink" href="/update">update account</a>| -->
-          <a id="clearLink" href="/clear">clear</a>|
-      </nav>
-    </footer>
-
-<!-- Scripts
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <script type="text/javascript">
-
-    </script>
-
-<!-- End Document
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  </body>
+        </div>
+    </body>
 </html>
