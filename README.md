@@ -44,19 +44,16 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 
 
 # Issues:
-- Keep an eye out for this error: Can't set headers after they are sent.
+- 
 
 # TODO:
-
-### TODO for MVP: ###
-- CRUD functionality for Users
-	* Update: User accounts & password reset
-	* Delete: User accounts
+- Passport Module
+	* Facebook login
+	* Twitter login
+	* Google login
 
 ### TODO extras: ###
 - Serve public JS files through routes
-- Omit password where needed
-- Login submission redirect to profile
 - CSS Animations
 - Password reset
 - User stats page
@@ -66,5 +63,3 @@ Node.js + Express + MongoDB + Mongoose + AJAX + jQuery
 	* Make friend routes
 	* Make friends view?
 	* Set friend permissions
-- Facebook API (user passport)
-- GitHub API
